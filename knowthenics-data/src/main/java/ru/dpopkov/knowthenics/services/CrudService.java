@@ -10,7 +10,7 @@ public interface CrudService<T extends BaseEntity, ID> {
 
     T findById(ID id);
 
-    void save(T entity);
+    T save(T entity);
 
     void delete(T entity);
 
