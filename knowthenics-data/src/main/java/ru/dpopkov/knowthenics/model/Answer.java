@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class Answer {
+public class Answer extends BaseEntity {
     private Question question;
     private String wordingEn;
     private String wordingRu;

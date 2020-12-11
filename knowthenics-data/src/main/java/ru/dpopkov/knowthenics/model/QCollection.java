@@ -2,7 +2,7 @@ package ru.dpopkov.knowthenics.model;
 
 import java.util.Set;
 
-public class QCollection {
+public class QCollection extends BaseEntity {
     private String title;
     private String description;
     private Set<Question> questions;

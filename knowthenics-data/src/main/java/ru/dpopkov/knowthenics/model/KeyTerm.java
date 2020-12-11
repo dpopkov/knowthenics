@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class KeyTerm {
+public class KeyTerm extends BaseEntity {
     private String name;
     private String description;
 

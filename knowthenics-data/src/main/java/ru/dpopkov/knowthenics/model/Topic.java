@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class Topic {
+public class Topic extends BaseEntity {
     private String name;
     private String description;
     private double knowingRate;

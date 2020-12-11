@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class AnswerType {
+public class AnswerType extends BaseEntity {
     private String name;
 
     public String getName() {

@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class SourceType {
+public class SourceType extends BaseEntity {
     private String name;
 
     public String getName() {

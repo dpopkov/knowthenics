@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class QuestionStat {
+public class QuestionStat extends BaseEntity {
     private int interviewUsageCount;
     private int drillCount;
     private int successCount;

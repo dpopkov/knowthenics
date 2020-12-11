@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class Source {
+public class Source extends BaseEntity {
     private String shortTitle;
     private String fullTitle;
     private String url;

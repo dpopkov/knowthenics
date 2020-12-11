@@ -1,6 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class Company {
+public class Company extends BaseEntity {
     private String title;
     private String description;
 
