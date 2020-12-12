@@ -4,7 +4,7 @@ public class Answer extends BaseEntity {
     private Question question;
     private String wordingEn;
     private String wordingRu;
-    private AnswerType answerType;
+    private String answerType;
     private Source source;
     private String comment;
 
@@ -32,11 +32,11 @@ public class Answer extends BaseEntity {
         this.wordingRu = wordingRu;
     }
 
-    public AnswerType getAnswerType() {
+    public String getAnswerType() {
         return answerType;
     }
 
-    public void setAnswerType(AnswerType answerType) {
+    public void setAnswerType(String answerType) {
         this.answerType = answerType;
     }
 

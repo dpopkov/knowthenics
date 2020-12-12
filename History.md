@@ -3,6 +3,7 @@
 #### 2020-12-13
 * Add KnowThenics Index Page and Controller. Closes #9.
 * Created Index pages and Controllers for Main Entities. Closes #10.
+* Loaded Bootstrap Data (partially) on Startup. Closes #11.
 
 #### 2020-12-11
 * Created Interfaces for KnowThenics Services. Closes #4.

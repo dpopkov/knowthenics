@@ -4,7 +4,7 @@ public class Source extends BaseEntity {
     private String shortTitle;
     private String fullTitle;
     private String url;
-    private SourceType sourceType;
+    private String sourceType;
     private String description;
 
     public String getShortTitle() {
@@ -31,11 +31,11 @@ public class Source extends BaseEntity {
         this.url = url;
     }
 
-    public SourceType getSourceType() {
+    public String getSourceType() {
         return sourceType;
     }
 
-    public void setSourceType(SourceType sourceType) {
+    public void setSourceType(String sourceType) {
         this.sourceType = sourceType;
     }
 
