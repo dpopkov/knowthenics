@@ -1,5 +1,8 @@
 # History
 
+#### 2020-12-13
+* Add KnowThenics Index Page and Controller. Closes #9.
+
 #### 2020-12-11
 * Created Interfaces for KnowThenics Services. Closes #4.
 * Create BaseEntity to add ID to model objects. Closes #5.
