@@ -2,6 +2,7 @@
 
 #### 2020-12-13
 * Add KnowThenics Index Page and Controller. Closes #9.
+* Created Index pages and Controllers for Main Entities. Closes #10.
 
 #### 2020-12-11
 * Created Interfaces for KnowThenics Services. Closes #4.
