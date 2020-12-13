@@ -17,11 +17,12 @@ public class DataLoader implements CommandLineRunner {
     private final QuestionService questionService;
     private final SourceService sourceService;
 
-    public DataLoader() {
-        answerService = new AnswerServiceMap();
-        categoryService = new CategoryServiceMap();
-        questionService = new QuestionServiceMap();
-        sourceService = new SourceServiceMap();
+    public DataLoader(AnswerService answerService, CategoryService categoryService,
+                      QuestionService questionService, SourceService sourceService) {
+        this.answerService = answerService;
+        this.categoryService = categoryService;
+        this.questionService = questionService;
+        this.sourceService = sourceService;
     }
 
     /**
