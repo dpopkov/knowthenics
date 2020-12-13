@@ -3,10 +3,7 @@ package ru.dpopkov.knowthenics.services.map;
 import ru.dpopkov.knowthenics.model.BaseEntity;
 import ru.dpopkov.knowthenics.services.CrudService;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractMapService<T extends BaseEntity> implements CrudService<T, Long> {
 
@@ -24,8 +21,21 @@ public abstract class AbstractMapService<T extends BaseEntity> implements CrudSe
 
     @Override
     public T save(T entity) {
+        if (entity == null) {
+            throw new IllegalArgumentException("Entity cannot be null");
+        }
+        if (entity.getId() == null) {
+            entity.setId(calculateNextId());
+        }
         map.put(entity.getId(), entity);
         return entity;
+    }
+
+    private Long calculateNextId() {
+        if (!map.isEmpty()) {
+            return Collections.max(map.keySet()) + 1L;
+        }
+        return 1L;
     }
 
     @Override

@@ -29,16 +29,16 @@ public class DataLoader implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
-        Category catCore = saveCategory();
+        Category catCore = saveCategory("Java Core", "Java syntax and main library classes");
+        saveCategory("Spring", "Spring framework");
         System.out.println("Category loaded ...");
 
-        saveQuestion(1L, catCore, "What is JVM?", "Java Virtual Machine");
-        saveQuestion(2L, catCore, "What is JRE?", "Java Runtime Environment");
-        Question jdk = saveQuestion(3L, catCore, "What is JDK?", "Java Development Kit");
+        saveQuestion(catCore, "What is JVM?", "Java Virtual Machine");
+        saveQuestion(catCore, "What is JRE?", "Java Runtime Environment");
+        Question jdk = saveQuestion(catCore, "What is JDK?", "Java Development Kit");
         System.out.println("Questions loaded ...");
 
         Source wiki = new Source();
-        wiki.setId(1L);
         wiki.setShortTitle("Wikipedia");
         wiki.setFullTitle("Wikipedia - the Free Encyclopedia");
         wiki.setSourceType("web");
@@ -46,16 +46,15 @@ public class DataLoader implements CommandLineRunner {
         sourceService.save(wiki);
         System.out.println("Source loaded ...");
 
-        Answer ansJdk = saveAnswer(1L, jdk,
+        Answer ansJdk = saveAnswer(jdk,
                 "The Java Development Kit is an implementation of the Java Platform released by Oracle"
                         + " in the form of a binary product aimed at Java developers.", wiki);
         jdk.setPreferredAnswer(ansJdk);
         System.out.println("Answer loaded ...");
     }
 
-    private Question saveQuestion(Long id, Category category, String wording, String shortAnswer) {
+    private Question saveQuestion(Category category, String wording, String shortAnswer) {
         Question question = new Question();
-        question.setId(id);
         question.setCategory(category);
         question.setWordingEn(wording);
         question.setShortAnswerEn(shortAnswer);
@@ -63,9 +62,8 @@ public class DataLoader implements CommandLineRunner {
         return question;
     }
 
-    private Answer saveAnswer(Long id, Question question, String wording, Source source) {
+    private Answer saveAnswer(Question question, String wording, Source source) {
         Answer answer = new Answer();
-        answer.setId(id);
         answer.setQuestion(question);
         answer.setWordingEn(wording);
         answer.setAnswerType("original");
@@ -74,12 +72,11 @@ public class DataLoader implements CommandLineRunner {
         return answer;
     }
 
-    private Category saveCategory() {
-        Category catCore = new Category();
-        catCore.setId(1L);
-        catCore.setName("Java Core");
-        catCore.setDescription("Java syntax and main library classes");
-        categoryService.save(catCore);
-        return catCore;
+    private Category saveCategory(String name, String description) {
+        Category cat = new Category();
+        cat.setName(name);
+        cat.setDescription(description);
+        categoryService.save(cat);
+        return cat;
     }
 }

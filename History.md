@@ -6,6 +6,7 @@
 * Loaded Bootstrap Data (partially) on Startup. Closes #11.
 * Implemented (partially) Spring Config for Services. Closes #14.
 * List all Entities on every Index page for main Entities (Category, Question, Answer, Source). Closes #12.
+* Update Services Map Impl to manage setting of ID Property. Closes #15.
 
 #### 2020-12-11
 * Created Interfaces for KnowThenics Services. Closes #4.
