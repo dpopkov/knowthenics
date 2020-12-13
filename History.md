@@ -5,6 +5,7 @@
 * Created Index pages and Controllers for Main Entities. Closes #10.
 * Loaded Bootstrap Data (partially) on Startup. Closes #11.
 * Implemented (partially) Spring Config for Services. Closes #14.
+* List all Entities on every Index page for main Entities (Category, Question, Answer, Source). Closes #12.
 
 #### 2020-12-11
 * Created Interfaces for KnowThenics Services. Closes #4.

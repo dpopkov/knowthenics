@@ -4,7 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import ru.dpopkov.knowthenics.model.*;
 import ru.dpopkov.knowthenics.services.*;
-import ru.dpopkov.knowthenics.services.map.*;
 
 /**
  * Initializes data on startup or the application.
@@ -47,9 +46,10 @@ public class DataLoader implements CommandLineRunner {
         sourceService.save(wiki);
         System.out.println("Source loaded ...");
 
-        saveAnswer(1L, jdk,
+        Answer ansJdk = saveAnswer(1L, jdk,
                 "The Java Development Kit is an implementation of the Java Platform released by Oracle"
                         + " in the form of a binary product aimed at Java developers.", wiki);
+        jdk.setPreferredAnswer(ansJdk);
         System.out.println("Answer loaded ...");
     }
 
@@ -63,7 +63,7 @@ public class DataLoader implements CommandLineRunner {
         return question;
     }
 
-    private void saveAnswer(Long id, Question question, String wording, Source source) {
+    private Answer saveAnswer(Long id, Question question, String wording, Source source) {
         Answer answer = new Answer();
         answer.setId(id);
         answer.setQuestion(question);
@@ -71,6 +71,7 @@ public class DataLoader implements CommandLineRunner {
         answer.setAnswerType("original");
         answer.setSource(source);
         answerService.save(answer);
+        return answer;
     }
 
     private Category saveCategory() {

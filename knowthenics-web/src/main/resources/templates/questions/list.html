@@ -8,5 +8,26 @@
 
 <h1 th:text="'List of Questions'">List of Questions ...</h1>
 
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Question</th>
+        <th>Short Answer</th>
+        <th>Preferred Answer</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${questions}">
+        <td th:text="${question.id}"></td>
+        <td th:text="${question.category?.getName()}"></td>
+        <td th:text="${question.wordingEn}"></td>
+        <td th:text="${question.shortAnswerEn}"></td>
+        <td th:text="${question.preferredAnswer?.getWordingEn()}"></td>
+    </tr>
+    </tbody>
+</table>
+
 </body>
 </html>

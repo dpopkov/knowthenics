@@ -6,6 +6,7 @@ public class Answer extends BaseEntity {
     private String wordingRu;
     private String answerType;
     private Source source;
+    private String sourceDetails;
     private String comment;
 
     public Question getQuestion() {
@@ -46,6 +47,14 @@ public class Answer extends BaseEntity {
 
     public void setSource(Source source) {
         this.source = source;
+    }
+
+    public String getSourceDetails() {
+        return sourceDetails;
+    }
+
+    public void setSourceDetails(String sourceDetails) {
+        this.sourceDetails = sourceDetails;
     }
 
     public String getComment() {
