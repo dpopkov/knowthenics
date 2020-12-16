@@ -2,6 +2,7 @@
 
 #### 2020-12-16
 * Copy static resources and Master template. Closes #16.
+* Add WRO4J Maven Plugin and webjars. Closes #17.
 
 #### 2020-12-13
 * Add KnowThenics Index Page and Controller. Closes #9.
