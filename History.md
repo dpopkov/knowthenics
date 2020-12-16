@@ -1,5 +1,8 @@
 # History
 
+#### 2020-12-16
+* Copy static resources and Master template. Closes #16.
+
 #### 2020-12-13
 * Add KnowThenics Index Page and Controller. Closes #9.
 * Created Index pages and Controllers for Main Entities. Closes #10.
