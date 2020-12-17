@@ -1,5 +1,9 @@
 # History
 
+#### 2020-12-18
+* Apply master layout to Index Page. Closes #19.
+* Add missing i18n properties files. Closes #18.
+
 #### 2020-12-16
 * Copy static resources and Master template. Closes #16.
 * Add WRO4J Maven Plugin and webjars. Closes #17.
