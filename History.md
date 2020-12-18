@@ -4,6 +4,7 @@
 * Apply master layout to Index Page. Closes #19.
 * Add missing i18n properties files. Closes #18.
 * Apply master layout to main Entities List pages. Closes #20.
+* Fix the Menu and Links. Closes #21.
 
 #### 2020-12-16
 * Copy static resources and Master template. Closes #16.
