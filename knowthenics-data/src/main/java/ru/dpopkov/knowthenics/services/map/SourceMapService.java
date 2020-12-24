@@ -5,5 +5,5 @@ import ru.dpopkov.knowthenics.model.Source;
 import ru.dpopkov.knowthenics.services.SourceService;
 
 @Service
-public class SourceServiceMap extends AbstractMapService<Source> implements SourceService {
+public class SourceMapService extends AbstractMapService<Source> implements SourceService {
 }
