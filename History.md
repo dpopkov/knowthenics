@@ -3,6 +3,7 @@
 #### 2020-12-24
 * Convert Entities to JPA Entities. Closes #22.
 * Add Spring Data JPA Repositories. Closes #23.
+* Create Spring Data JPA Services for main Entities. Closes #24.
 
 #### 2020-12-18
 * Apply master layout to Index Page. Closes #19.
