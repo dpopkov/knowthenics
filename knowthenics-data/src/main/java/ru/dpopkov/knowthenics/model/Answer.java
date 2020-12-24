@@ -13,9 +13,11 @@ public class Answer extends BaseEntity {
     private Question question;
 
     @Column(name = "wording_en")
+    @Lob
     private String wordingEn;
 
     @Column(name = "wording_ru")
+    @Lob
     private String wordingRu;
 
     @Column(name = "answer_type")
