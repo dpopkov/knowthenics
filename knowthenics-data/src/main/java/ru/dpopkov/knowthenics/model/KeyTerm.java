@@ -12,6 +12,14 @@ public class KeyTerm extends BaseEntity {
     private String name;
     private String description;
 
+    public KeyTerm() {
+    }
+
+    public KeyTerm(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     @ManyToMany(mappedBy = "keyTerms")
     private Set<Question> questions = new HashSet<>();
 

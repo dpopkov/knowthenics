@@ -126,6 +126,11 @@ public class Question extends BaseEntity {
         this.keyTerms = keyTerms;
     }
 
+    public void addKeyTerm(KeyTerm keyTerm) {
+        keyTerms.add(keyTerm);
+        keyTerm.getQuestions().add(this);
+    }
+
     public int getInterviewUsageCount() {
         return interviewUsageCount;
     }

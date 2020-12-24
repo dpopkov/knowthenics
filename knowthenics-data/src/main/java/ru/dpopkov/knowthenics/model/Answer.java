@@ -99,4 +99,9 @@ public class Answer extends BaseEntity {
     public void setKeyTerms(Set<KeyTerm> keyTerms) {
         this.keyTerms = keyTerms;
     }
+
+    public void addKeyTerm(KeyTerm keyTerm) {
+        keyTerms.add(keyTerm);
+        keyTerm.getAnswers().add(this);
+    }
 }
