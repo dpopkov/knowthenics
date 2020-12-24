@@ -41,7 +41,7 @@ public class DataLoader implements CommandLineRunner {
         Source wiki = new Source();
         wiki.setShortTitle("Wikipedia");
         wiki.setFullTitle("Wikipedia - the Free Encyclopedia");
-        wiki.setSourceType("web");
+        wiki.setSourceType(SourceType.WEB_SITE);
         wiki.setUrl("https://www.wikipedia.org/");
         sourceService.save(wiki);
         System.out.println("Source loaded ...");
@@ -66,7 +66,7 @@ public class DataLoader implements CommandLineRunner {
         Answer answer = new Answer();
         answer.setQuestion(question);
         answer.setWordingEn(wording);
-        answer.setAnswerType("original");
+        answer.setAnswerType(AnswerType.ORIGINAL);
         answer.setSource(source);
         answerService.save(answer);
         return answer;

@@ -1,5 +1,8 @@
 # History
 
+#### 2020-12-24
+* Convert Entities to JPA Entities. Closes #22.
+
 #### 2020-12-18
 * Apply master layout to Index Page. Closes #19.
 * Add missing i18n properties files. Closes #18.

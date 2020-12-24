@@ -1,13 +1,6 @@
 package ru.dpopkov.knowthenics.model;
 
-public class AnswerType extends BaseEntity {
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+public enum AnswerType {
+    ORIGINAL,
+    MERGED
 }

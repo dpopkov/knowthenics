@@ -1,10 +1,15 @@
 package ru.dpopkov.knowthenics.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "sources")
 public class Source extends BaseEntity {
     private String shortTitle;
     private String fullTitle;
     private String url;
-    private String sourceType;
+    private SourceType sourceType;
     private String description;
 
     public String getShortTitle() {
@@ -31,11 +36,11 @@ public class Source extends BaseEntity {
         this.url = url;
     }
 
-    public String getSourceType() {
+    public SourceType getSourceType() {
         return sourceType;
     }
 
-    public void setSourceType(String sourceType) {
+    public void setSourceType(SourceType sourceType) {
         this.sourceType = sourceType;
     }
 
