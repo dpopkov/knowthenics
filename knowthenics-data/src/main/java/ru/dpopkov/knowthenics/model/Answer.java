@@ -21,6 +21,7 @@ public class Answer extends BaseEntity {
     private String wordingRu;
 
     @Column(name = "answer_type")
+    @Enumerated(EnumType.STRING)
     private AnswerType answerType;
 
     @ManyToOne
