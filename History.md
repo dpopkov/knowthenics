@@ -1,5 +1,9 @@
 # History
 
+#### 2020-12-30
+* Add the config.yml for Circle CI.
+* Add CircleCI Build Badge #27. Should close #27.
+
 #### 2020-12-24
 * Convert Entities to JPA Entities. Closes #22.
 * Add Spring Data JPA Repositories. Closes #23.
