@@ -45,7 +45,24 @@ public class Answer extends BaseEntity {
             joinColumns = @JoinColumn(name = "answer_id"), inverseJoinColumns = @JoinColumn(name = "key_term_id"))
     private Set<KeyTerm> keyTerms = new HashSet<>();
 
+    @Builder
+    public Answer(Long id, Question question, String wordingEn, String wordingRu, AnswerType answerType, Source source,
+                  String sourceDetails, String comment, Set<KeyTerm> keyTerms) {
+        super(id);
+        this.question = question;
+        this.wordingEn = wordingEn;
+        this.wordingRu = wordingRu;
+        this.answerType = answerType;
+        this.source = source;
+        this.sourceDetails = sourceDetails;
+        this.comment = comment;
+        this.keyTerms = keyTerms;
+    }
+
     public void addKeyTerm(KeyTerm keyTerm) {
+        if (keyTerms == null) {
+            keyTerms = new HashSet<>();
+        }
         keyTerms.add(keyTerm);
         keyTerm.getAnswers().add(this);
     }

@@ -22,4 +22,12 @@ public class QuestionDrillStat extends BaseEntity {
 
     @Column(name = "knowing_rate")
     private double knowingRate;
+
+    @Builder
+    public QuestionDrillStat(Long id, int drillCount, int successCount, double knowingRate) {
+        super(id);
+        this.drillCount = drillCount;
+        this.successCount = successCount;
+        this.knowingRate = knowingRate;
+    }
 }

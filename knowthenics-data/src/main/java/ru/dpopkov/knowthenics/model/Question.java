@@ -52,7 +52,28 @@ public class Question extends BaseEntity {
     @Column(name = "usage_count")
     private int interviewUsageCount;
 
+    @Builder
+    public Question(Long id, Category category, String wordingEn, String wordingRu, String shortAnswerEn,
+                    String shortAnswerRu, Answer preferredAnswer, Set<Answer> answers, QuestionDrillStat stat,
+                    String comment, Set<KeyTerm> keyTerms, int interviewUsageCount) {
+        super(id);
+        this.category = category;
+        this.wordingEn = wordingEn;
+        this.wordingRu = wordingRu;
+        this.shortAnswerEn = shortAnswerEn;
+        this.shortAnswerRu = shortAnswerRu;
+        this.preferredAnswer = preferredAnswer;
+        this.answers = answers;
+        this.stat = stat;
+        this.comment = comment;
+        this.keyTerms = keyTerms;
+        this.interviewUsageCount = interviewUsageCount;
+    }
+
     public void addKeyTerm(KeyTerm keyTerm) {
+        if (keyTerms == null) {
+            keyTerms = new HashSet<>();
+        }
         keyTerms.add(keyTerm);
         keyTerm.getQuestions().add(this);
     }

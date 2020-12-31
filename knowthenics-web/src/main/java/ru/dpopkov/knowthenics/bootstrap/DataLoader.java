@@ -88,11 +88,8 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private Question saveQuestion(Category category, String wording, String shortAnswer, KeyTerm... keyTerms) {
-        Question question = new Question();
-        question.setCategory(category);
-        question.setWordingEn(wording);
-        question.setShortAnswerEn(shortAnswer);
-        question.setStat(new QuestionDrillStat());
+        Question question = Question.builder().category(category).wordingEn(wording).shortAnswerEn(shortAnswer)
+                .stat(new QuestionDrillStat()).build();
         for (KeyTerm kt : keyTerms) {
             question.addKeyTerm(kt);
         }
@@ -101,23 +98,16 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private Source saveSource(String title, String fullTitle, String url) {
-        Source source = new Source();
-        source.setShortTitle(title);
-        source.setFullTitle(fullTitle);
-        source.setSourceType(SourceType.WEB_SITE);
-        source.setUrl(url);
+        Source source = Source.builder().shortTitle(title).fullTitle(fullTitle)
+                .sourceType(SourceType.WEB_SITE).url(url).build();
         sourceService.save(source);
         return source;
     }
 
     private Answer saveAnswer(Question question, String wording, Source source, String sourceDetails,
                               KeyTerm... keyTerms) {
-        Answer answer = new Answer();
-        answer.setQuestion(question);
-        answer.setWordingEn(wording);
-        answer.setAnswerType(AnswerType.ORIGINAL);
-        answer.setSource(source);
-        answer.setSourceDetails(sourceDetails);
+        Answer answer = Answer.builder().question(question).wordingEn(wording).answerType(AnswerType.ORIGINAL)
+                .source(source).sourceDetails(sourceDetails).build();
         for (KeyTerm kt : keyTerms) {
             answer.addKeyTerm(kt);
         }
@@ -126,9 +116,7 @@ public class DataLoader implements CommandLineRunner {
     }
 
     private Category saveCategory(String name, String description) {
-        Category cat = new Category();
-        cat.setName(name);
-        cat.setDescription(description);
+        Category cat = Category.builder().name(name).description(description).build();
         categoryService.save(cat);
         return cat;
     }

@@ -23,4 +23,12 @@ public class QCollection extends BaseEntity {
     @JoinTable(name = "qcollection_question",
             joinColumns = @JoinColumn(name = "qcollection_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<Question> questions;
+
+    @Builder
+    public QCollection(Long id, String title, String description, Set<Question> questions) {
+        super(id);
+        this.title = title;
+        this.description = description;
+        this.questions = questions;
+    }
 }

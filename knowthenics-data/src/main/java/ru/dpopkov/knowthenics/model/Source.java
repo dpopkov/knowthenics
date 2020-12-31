@@ -20,4 +20,14 @@ public class Source extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SourceType sourceType;
     private String description;
+
+    @Builder
+    public Source(Long id, String shortTitle, String fullTitle, String url, SourceType sourceType, String description) {
+        super(id);
+        this.shortTitle = shortTitle;
+        this.fullTitle = fullTitle;
+        this.url = url;
+        this.sourceType = sourceType;
+        this.description = description;
+    }
 }

@@ -28,4 +28,13 @@ public class KeyTerm extends BaseEntity {
         this.name = name;
         this.description = description;
     }
+
+    @Builder
+    public KeyTerm(Long id, String name, String description, Set<Question> questions, Set<Answer> answers) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.questions = questions;
+        this.answers = answers;
+    }
 }

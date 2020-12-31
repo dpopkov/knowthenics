@@ -24,4 +24,13 @@ public class Topic extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "qcollection_id")
     private QCollection questions;
+
+    @Builder
+    public Topic(Long id, String name, String description, double knowingRate, QCollection questions) {
+        super(id);
+        this.name = name;
+        this.description = description;
+        this.knowingRate = knowingRate;
+        this.questions = questions;
+    }
 }

@@ -2,6 +2,7 @@
 
 #### 2020-12-31
 * Add Project Lombok and Refactor. Closes #28.
+* Setup Builder Pattern for Entities using Lombok. Closes #29.
 
 #### 2020-12-30
 * Add the config.yml for Circle CI.
