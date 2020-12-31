@@ -1,5 +1,6 @@
 package ru.dpopkov.knowthenics.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import ru.dpopkov.knowthenics.model.*;
@@ -8,6 +9,7 @@ import ru.dpopkov.knowthenics.services.*;
 /**
  * Initializes data on startup or the application.
  */
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -32,10 +34,12 @@ public class DataLoader implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
+        log.info("Loading bootstrap data ...");
+
         Category catCore = saveCategory("Java Core", "Java syntax and main library classes");
         saveCategory("Spring", "Spring framework");
         Category catJdbc = saveCategory("JDBC", "JDBC");
-        System.out.println("Categories loaded ...");
+        log.info("Categories loaded.");
 
         KeyTerm jdkTerm = new KeyTerm("JDK", "JDK - Java Development Kit");
         keyTermService.save(jdkTerm);
@@ -43,13 +47,13 @@ public class DataLoader implements CommandLineRunner {
         keyTermService.save(jreTerm);
         KeyTerm jdbcTerm = new KeyTerm("JDBC", "Java database connectivity");
         keyTermService.save(jdbcTerm);
-        System.out.println("KeyTerms loaded ...");
+        log.info("KeyTerms loaded.");
 
         saveQuestion(catCore, "What is JVM?", "Java Virtual Machine");
         saveQuestion(catCore, "What is JRE?", "Java Runtime Environment", jreTerm);
         Question jdk = saveQuestion(catCore, "What is JDK?", "Java Development Kit", jdkTerm);
         Question jdbc = saveQuestion(catJdbc, "What is JDBC?", "Java database connectivity", jdbcTerm);
-        System.out.println("Questions loaded ...");
+        log.info("Questions loaded.");
 
         Source wiki = saveSource("Wikipedia", "Wikipedia - the Free Encyclopedia", "https://www.wikipedia.org/");
         Source javarevisitedBlog = saveSource("Javarevisited", "Javarevisited - Blog about Java, "
@@ -58,7 +62,7 @@ public class DataLoader implements CommandLineRunner {
         Source baeldung = saveSource("Baeldung",
                 "Baeldung helps developers explore the Java ecosystem and simply be better engineers.",
                 "https://www.baeldung.com");
-        System.out.println("Sources loaded ...");
+        log.info("Sources loaded.");
 
         Answer ansJdk = saveAnswer(jdk,
                 "The Java Development Kit is an implementation of the Java Platform released by Oracle"
@@ -80,7 +84,7 @@ public class DataLoader implements CommandLineRunner {
                 jdbcTerm);
         jdbc.setPreferredAnswer(ansJdbc);
         questionService.save(jdbc);
-        System.out.println("Answers loaded ...");
+        log.info("Answers loaded.");
     }
 
     private Question saveQuestion(Category category, String wording, String shortAnswer, KeyTerm... keyTerms) {
