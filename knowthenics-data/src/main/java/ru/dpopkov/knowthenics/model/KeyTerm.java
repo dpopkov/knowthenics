@@ -34,7 +34,7 @@ public class KeyTerm extends BaseEntity {
         super(id);
         this.name = name;
         this.description = description;
-        this.questions = questions;
-        this.answers = answers;
+        this.questions = questions != null ? questions : new HashSet<>();
+        this.answers = answers != null ? answers : new HashSet<>();
     }
 }

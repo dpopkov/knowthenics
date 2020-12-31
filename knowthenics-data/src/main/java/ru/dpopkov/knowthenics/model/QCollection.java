@@ -3,6 +3,7 @@ package ru.dpopkov.knowthenics.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -29,6 +30,6 @@ public class QCollection extends BaseEntity {
         super(id);
         this.title = title;
         this.description = description;
-        this.questions = questions;
+        this.questions = questions != null ? questions : new HashSet<>();
     }
 }

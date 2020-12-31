@@ -56,13 +56,10 @@ public class Answer extends BaseEntity {
         this.source = source;
         this.sourceDetails = sourceDetails;
         this.comment = comment;
-        this.keyTerms = keyTerms;
+        this.keyTerms = keyTerms != null ? keyTerms : new HashSet<>();
     }
 
     public void addKeyTerm(KeyTerm keyTerm) {
-        if (keyTerms == null) {
-            keyTerms = new HashSet<>();
-        }
         keyTerms.add(keyTerm);
         keyTerm.getAnswers().add(this);
     }

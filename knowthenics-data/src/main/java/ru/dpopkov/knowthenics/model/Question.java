@@ -63,17 +63,14 @@ public class Question extends BaseEntity {
         this.shortAnswerEn = shortAnswerEn;
         this.shortAnswerRu = shortAnswerRu;
         this.preferredAnswer = preferredAnswer;
-        this.answers = answers;
+        this.answers = answers != null ? answers : new HashSet<>();
         this.stat = stat;
         this.comment = comment;
-        this.keyTerms = keyTerms;
+        this.keyTerms = keyTerms != null ? keyTerms : new HashSet<>();
         this.interviewUsageCount = interviewUsageCount;
     }
 
     public void addKeyTerm(KeyTerm keyTerm) {
-        if (keyTerms == null) {
-            keyTerms = new HashSet<>();
-        }
         keyTerms.add(keyTerm);
         keyTerm.getQuestions().add(this);
     }
