@@ -20,4 +20,9 @@ public class QuestionController {
         model.addAttribute("questions", questionService.findAll());
         return "questions/list";
     }
+
+    @RequestMapping("/find")
+    public String find() {
+        return "notimplemented";
+    }
 }
