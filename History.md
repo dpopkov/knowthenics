@@ -2,6 +2,7 @@
 
 #### 2021-01-01
 * Write CRUD tests for Map Services. Closes #30.
+* Write CRUD tests for Spring Data JPA Services. Closes #31.
 
 #### 2020-12-31
 * Add Project Lombok and Refactor. Closes #28.
