@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/topics")
-public class TopicsController {
+public class TopicController {
 
     @RequestMapping({"", "/", "list", "list.html", "index", "index.html"})
     public String list() {

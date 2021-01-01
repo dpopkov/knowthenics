@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/keyterms")
-public class KeyTermsController {
+public class KeyTermController {
 
     @RequestMapping({"", "/", "list", "list.html", "index", "index.html"})
     public String list() {

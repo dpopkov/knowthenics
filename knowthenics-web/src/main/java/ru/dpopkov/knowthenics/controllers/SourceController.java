@@ -7,11 +7,11 @@ import ru.dpopkov.knowthenics.services.SourceService;
 
 @Controller
 @RequestMapping("/sources")
-public class SourcesController {
+public class SourceController {
 
     private final SourceService sourceService;
 
-    public SourcesController(SourceService sourceService) {
+    public SourceController(SourceService sourceService) {
         this.sourceService = sourceService;
     }
 

@@ -7,11 +7,11 @@ import ru.dpopkov.knowthenics.services.QuestionService;
 
 @Controller
 @RequestMapping("/questions")
-public class QuestionsController {
+public class QuestionController {
 
     private final QuestionService questionService;
 
-    public QuestionsController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
