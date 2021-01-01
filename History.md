@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-01
+* Write CRUD tests for Map Services. Closes #30.
+
 #### 2020-12-31
 * Add Project Lombok and Refactor. Closes #28.
 * Setup Builder Pattern for Entities using Lombok. Closes #29.
