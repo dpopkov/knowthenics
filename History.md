@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-13
+* Create DTO Objects and Converters. Closes #33.
+
 #### 2021-01-01
 * Write CRUD tests for Map Services. Closes #30.
 * Write CRUD tests for Spring Data JPA Services. Closes #31.
