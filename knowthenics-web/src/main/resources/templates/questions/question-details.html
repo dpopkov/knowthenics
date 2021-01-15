@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Details</title>
+</head>
+<body>
+
+<h2>Question</h2>
+
+<table class="table table-striped" th:object="${question}">
+    <tr>
+        <th>Category</th>
+        <td th:text="*{category.name}"></td>
+    </tr>
+    <tr>
+        <th>Question (en)</th>
+        <td th:text="*{wordingEn}"></td>
+    </tr>
+    <tr>
+        <th>Question (ru)</th>
+        <td th:text="*{wordingRu}"></td>
+    </tr>
+    <tr>
+        <th>Short Answer (en)</th>
+        <td th:text="*{shortAnswerEn}"></td>
+    </tr>
+    <tr>
+        <th>Short Answer (ru)</th>
+        <td th:text="*{shortAnswerRu}"></td>
+    </tr>
+    <tr>
+        <th>Preferred Answer</th>
+        <td th:text="*{preferredAnswer?.wordingEn}"></td>
+    </tr>
+    <tr>
+        <th>Comment</th>
+        <td th:text="*{comment}"></td>
+    </tr>
+    <tr>
+        <th>Usages</th>
+        <td th:text="*{interviewUsageCount}"></td>
+    </tr>
+</table>
+
+<a th:href="@{{id}/edit(id=${question.id})}" class="btn btn-default">Edit Question</a>
+<a th:href="@{{id}/keyterms/add(id=${question.id})}" class="btn btn-default">Add Key Term</a>
+<a th:href="@{{id}/answers/new(id=${question.id})}" class="btn btn-default">Add New Answer</a>
+
+<br/>
+<br/>
+<h2>Key Terms</h2>
+
+<table class="table table-striped">
+    <tr th:each="keyTerm : ${question.keyTerms}">
+        <td th:text="${keyTerm.name}"></td>
+        <td th:text="${keyTerm.description}"></td>
+    </tr>
+</table>
+
+<br/>
+<br/>
+<h2>Answers</h2>
+
+<table class="table table-striped">
+    <tr th:each="answer : ${question.answers}">
+        <td th:text="${answer.wordingEn}"></td>
+        <td th:text="${answer.wordingRu}"></td>
+        <td th:text="${answer.answerType}"></td>
+        <td th:text="${answer.source?.shortTitle}"></td>
+        <td th:text="${answer.sourceDetails}"></td>
+        <td th:text="${answer.comment}"></td>
+    </tr>
+</table>
+
+</body>
+</html>

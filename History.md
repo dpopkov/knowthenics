@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-16
+* Display Question Record. Closes #34.
+
 #### 2021-01-13
 * Create DTO Objects and Converters. Closes #33.
 

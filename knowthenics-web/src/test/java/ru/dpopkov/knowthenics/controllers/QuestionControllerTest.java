@@ -44,6 +44,7 @@ class QuestionControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
+    @SuppressWarnings("unchecked")
     @Test
     void testList() {
         when(questionService.findAll()).thenReturn(questions);
@@ -66,6 +67,16 @@ class QuestionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("questions/list"))
                 .andExpect(model().attribute("questions", hasSize(2)));
+    }
+
+    @Test
+    void testShowQuestion() throws Exception {
+        when(questionService.findById(anyLong())).thenReturn(new Question());
+
+        mockMvc.perform(get("/questions/10"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("questions/question-details"))
+                .andExpect(model().attributeExists("question"));
     }
 
     @Test

@@ -20,7 +20,7 @@
     </thead>
     <tbody>
     <tr th:each="question : ${questions}">
-        <td th:text="${question.id}"></td>
+        <td><a href="#" th:href="@{'/questions/' + ${question.id}}" th:text="'#' + ${question.id}"></a></td>
         <td th:text="${question.category?.getName()}"></td>
         <td th:text="${question.wordingEn}"></td>
         <td th:text="${question.shortAnswerEn}"></td>
