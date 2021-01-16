@@ -14,6 +14,7 @@
         <th>ID</th>
         <th>Category</th>
         <th>Question</th>
+        <th>Вопрос</th>
         <th>Short Answer</th>
         <th>Preferred Answer</th>
     </tr>
@@ -23,6 +24,7 @@
         <td><a href="#" th:href="@{'/questions/' + ${question.id}}" th:text="'#' + ${question.id}"></a></td>
         <td th:text="${question.category?.getName()}"></td>
         <td th:text="${question.wordingEn}"></td>
+        <td th:text="${question.wordingRu}"></td>
         <td th:text="${question.shortAnswerEn}"></td>
         <td th:text="${question.preferredAnswer?.getWordingEn()}"></td>
     </tr>

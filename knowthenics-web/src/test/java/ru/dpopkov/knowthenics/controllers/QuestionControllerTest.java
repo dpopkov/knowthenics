@@ -59,7 +59,7 @@ class QuestionControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"/questions", "/questions/", "/questions/list", "/questions/list.html"})
+    @ValueSource(strings = {"/questions/list", "/questions/list.html"})
     void testGetQuestions(String urlTemplate) throws Exception {
         when(questionService.findAll()).thenReturn(questions);
 
@@ -80,10 +80,22 @@ class QuestionControllerTest {
     }
 
     @Test
-    void testFind() throws Exception {
+    void testInitFindQuestionForm() throws Exception {
         mockMvc.perform(get("/questions/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("notimplemented"));
+                .andExpect(model().attributeExists("question"))
+                .andExpect(view().name("questions/find-questions"));
         verifyNoInteractions(questionService);
+    }
+
+    @Test
+    void testProcessFindQuestionForm() throws Exception {
+        when(questionService.findAllByWordingEnLike(anyString())).thenReturn(questions);
+
+        mockMvc.perform(get("/questions"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("questions"))
+                .andExpect(view().name("questions/list"));
+        verify(questionService).findAllByWordingEnLike(anyString());
     }
 }

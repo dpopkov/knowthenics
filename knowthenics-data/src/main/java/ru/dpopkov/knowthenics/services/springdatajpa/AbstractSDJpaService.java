@@ -9,7 +9,7 @@ import java.util.Set;
 
 public abstract class AbstractSDJpaService<T extends BaseEntity> implements CrudService<T, Long> {
 
-    private final CrudRepository<T, Long> crudRepository;
+    protected final CrudRepository<T, Long> crudRepository;
 
     public AbstractSDJpaService(CrudRepository<T, Long> crudRepository) {
         this.crudRepository = crudRepository;

@@ -59,4 +59,11 @@ class QuestionMapServiceTest {
         assertNull(service.findById(ID));
         assertTrue(service.findAll().isEmpty());
     }
+
+    @Test
+    void testFindAllByWordingEnLike() {
+        service.save(Question.builder().id(ID + 1).wordingEn("_test1_").build());
+        service.save(Question.builder().id(ID + 2).wordingEn("_test2_").build());
+        assertEquals(2, service.findAllByWordingEnLike("test").size());
+    }
 }

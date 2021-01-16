@@ -58,11 +58,6 @@
             <span>Home</span>
           </li>
 
-          <li th:replace="::menuItem ('/answers/find','find answers','find answers','search','Find answers')">
-            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-            <span>Find answers</span>
-          </li>
-
           <li th:replace="::menuItem ('/categories','categories','categories','th-list','categories')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Categories</span>
@@ -73,9 +68,19 @@
             <span>Questions</span>
           </li>
 
+          <li th:replace="::menuItem ('/questions/find','find questions','find questions','search','Find Questions')">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span>Find questions</span>
+          </li>
+
           <li th:replace="::menuItem ('/answers','answers','Answers','th-list','Answers')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Answers</span>
+          </li>
+
+          <li th:replace="::menuItem ('/answers/find','find answers','find answers','search','Find Answers')">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            <span>Find answers</span>
           </li>
 
           <li
