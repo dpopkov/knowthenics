@@ -47,12 +47,15 @@ public class DataLoader implements CommandLineRunner {
         keyTermService.save(jreTerm);
         KeyTerm jdbcTerm = new KeyTerm("JDBC", "Java database connectivity");
         keyTermService.save(jdbcTerm);
+        KeyTerm databaseTerm = new KeyTerm("Database", "Organized collection of data");
+        keyTermService.save(databaseTerm);
         log.info("KeyTerms loaded.");
 
         saveQuestion(catCore, "What is JVM?", "Java Virtual Machine");
         saveQuestion(catCore, "What is JRE?", "Java Runtime Environment", jreTerm);
         Question jdk = saveQuestion(catCore, "What is JDK?", "Java Development Kit", jdkTerm);
-        Question jdbc = saveQuestion(catJdbc, "What is JDBC?", "Java database connectivity", jdbcTerm);
+        Question jdbc = saveQuestion(catJdbc, "What is JDBC?", "Java database connectivity",
+                jdbcTerm, databaseTerm);
         log.info("Questions loaded.");
 
         Source wiki = saveSource("Wikipedia", "Wikipedia - the Free Encyclopedia", "https://www.wikipedia.org/");

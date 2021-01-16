@@ -2,6 +2,7 @@
 
 #### 2021-01-16
 * Display Question Record. Closes #34.
+* Add in the Question Details page link to edit Answer, link to view Answer Details page. Closes #35.
 
 #### 2021-01-13
 * Create DTO Objects and Converters. Closes #33.

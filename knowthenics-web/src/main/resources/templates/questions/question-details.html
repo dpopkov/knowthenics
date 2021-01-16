@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h2>Question</h2>
+<h2>Question Details</h2>
 
 <table class="table table-striped" th:object="${question}">
     <tr>
@@ -52,17 +52,27 @@
 <h2>Key Terms</h2>
 
 <table class="table table-striped">
-    <tr th:each="keyTerm : ${question.keyTerms}">
-        <td th:text="${keyTerm.name}"></td>
-        <td th:text="${keyTerm.description}"></td>
+    <tr>
+        <td th:each="keyTerm : ${question.keyTerms}" th:text="${keyTerm.name}"></td>
     </tr>
 </table>
 
 <br/>
-<br/>
 <h2>Answers</h2>
 
 <table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Answer</th>
+        <th>Ответ</th>
+        <th>Type</th>
+        <th>Source</th>
+        <th>Source Details</th>
+        <th>Comment</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr th:each="answer : ${question.answers}">
         <td th:text="${answer.wordingEn}"></td>
         <td th:text="${answer.wordingRu}"></td>
@@ -70,7 +80,22 @@
         <td th:text="${answer.source?.shortTitle}"></td>
         <td th:text="${answer.sourceDetails}"></td>
         <td th:text="${answer.comment}"></td>
+        <td>
+            <table class="table-condensed">
+                <tr>
+                    <td><a href="#"
+                           th:href="@{{questionId}/answer/{answerId}/view(questionId=${question.id},answerId=${answer.id})}">
+                        View</a></td>
+                </tr>
+                <tr>
+                    <td><a href="#"
+                           th:href="@{{questionId}/answer/{answerId}/edit(questionId=${question.id},answerId=${answer.id})}">
+                        Edit</a></td>
+                </tr>
+            </table>
+        </td>
     </tr>
+    </tbody>
 </table>
 
 </body>
