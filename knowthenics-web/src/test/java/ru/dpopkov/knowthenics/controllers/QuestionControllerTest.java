@@ -6,6 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import ru.dpopkov.knowthenics.model.Question;
+import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.QuestionService;
 
 import java.util.Set;
@@ -27,6 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class QuestionControllerTest {
     @Mock
     QuestionService questionService;
+    @Mock
+    CategoryService categoryService;
     @Mock
     Model model;
     @InjectMocks
@@ -97,5 +101,54 @@ class QuestionControllerTest {
                 .andExpect(model().attributeExists("questions"))
                 .andExpect(view().name("questions/list"));
         verify(questionService).findAllByWordingEnLike(anyString());
+    }
+
+    @Test
+    void testInitCreationForm() throws Exception {
+        mockMvc.perform(get("/questions/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("questions/create-or-update-form"))
+                .andExpect(model().attributeExists("question"))
+                .andExpect(model().attributeExists("categories"));
+        verify(categoryService).findAll();
+        verifyNoInteractions(questionService);
+    }
+
+    @Test
+    void testProcessCreateForm() throws Exception {
+        final Long questionId = 10L;
+        when(questionService.save(ArgumentMatchers.any(Question.class))).thenReturn(
+                Question.builder().id(questionId).build()
+        );
+        mockMvc.perform(post("/questions/new"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/questions/" + questionId));
+        verify(questionService).save(ArgumentMatchers.any(Question.class));
+    }
+
+    @Test
+    void testInitUpdateForm() throws Exception {
+        final Long questionId = 10L;
+        when(questionService.findById(questionId)).thenReturn(Question.builder().id(questionId).build());
+
+        mockMvc.perform(get("/questions/" + questionId + "/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("questions/create-or-update-form"))
+                .andExpect(model().attributeExists("question"))
+                .andExpect(model().attributeExists("categories"));
+        verify(categoryService).findAll();
+        verify(questionService).findById(questionId);
+    }
+
+    @Test
+    void testProcessUpdateForm() throws Exception {
+        final Long questionId = 10L;
+        Question question = Question.builder().id(questionId).build();
+
+        when(questionService.save(ArgumentMatchers.any(Question.class))).thenReturn(question);
+        mockMvc.perform(post("/questions/" + questionId + "/edit"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/questions/" + questionId));
+        verify(questionService).save(ArgumentMatchers.any(Question.class));
     }
 }

@@ -1,31 +1,35 @@
 package ru.dpopkov.knowthenics.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.dpopkov.knowthenics.model.Question;
+import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.QuestionService;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Set;
 
 @SuppressWarnings("SameReturnValue")
+@Slf4j
 @Controller
 @RequestMapping("/questions")
 public class QuestionController {
 
     private static final String QUESTIONS_FIND_QUESTIONS = "questions/find-questions";
+    private static final String QUESTIONS_CREATE_OR_UPDATE_FORM = "questions/create-or-update-form";
 
     private final QuestionService questionService;
+    private final CategoryService categoryService;
 
-    public QuestionController(QuestionService questionService) {
+    public QuestionController(QuestionService questionService, CategoryService categoryService) {
         this.questionService = questionService;
+        this.categoryService = categoryService;
     }
 
     @InitBinder
@@ -71,5 +75,42 @@ public class QuestionController {
             model.addAttribute("questions", questions);
             return "questions/list";
         }
+    }
+
+    @GetMapping("/new")
+    public String initCreateForm(Model model) {
+        model.addAttribute(new Question());
+        model.addAttribute("categories", categoryService.findAll());
+        return QUESTIONS_CREATE_OR_UPDATE_FORM;
+    }
+
+    @PostMapping("/new")
+    public String processCreateForm(@Valid Question question, BindingResult result) {
+        if (result.hasErrors()) {
+            return QUESTIONS_CREATE_OR_UPDATE_FORM;
+        }
+        Question created = questionService.save(question);
+        log.debug("Created question ID {}", created.getId());
+        return "redirect:/questions/" + created.getId();
+    }
+
+    @GetMapping("/{questionId}/edit")
+    public String initUpdateForm(@PathVariable String questionId, Model model) {
+        Long id = Long.parseLong(questionId);
+        Question question = questionService.findById(id);
+        model.addAttribute(question);
+        model.addAttribute("categories", categoryService.findAll());
+        return QUESTIONS_CREATE_OR_UPDATE_FORM;
+    }
+
+    @PostMapping("/{questionId}/edit")
+    public String processUpdateForm(@Valid Question question, BindingResult result, @PathVariable String questionId) {
+        if (result.hasErrors()) {
+            return QUESTIONS_CREATE_OR_UPDATE_FORM;
+        }
+        question.setId(Long.parseLong(questionId));
+        Question updated = questionService.save(question);
+        log.debug("Updated question ID {}", updated.getId());
+        return "redirect:/questions/" + updated.getId();
     }
 }
