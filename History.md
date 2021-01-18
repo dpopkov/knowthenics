@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-18
+* Add ability to add or update Category. Closes #38.
+
 #### 2021-01-17
 * Add ability to add or update a Question. Closes #37.
 

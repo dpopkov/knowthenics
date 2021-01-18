@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'categories')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Form</title>
+</head>
+<body>
+
+<h2>Category</h2>
+<form th:object="${category}" class="form-horizontal" id="add-owner-form" method="post">
+    <div class="form-group has-feedback">
+        <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}"/>
+        <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}"/>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button th:with="text=${category['new']} ? 'Add Category' : 'Update Category'"
+                    class="btn btn-default" type="submit" th:text="${text}">
+                Add Owner
+            </button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>
