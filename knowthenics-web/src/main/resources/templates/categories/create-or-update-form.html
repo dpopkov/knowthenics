@@ -8,7 +8,7 @@
 <body>
 
 <h2>Category</h2>
-<form th:object="${category}" class="form-horizontal" id="add-owner-form" method="post">
+<form th:object="${category}" class="form-horizontal" id="add-category-form" method="post">
     <div class="form-group has-feedback">
         <input th:replace="~{fragments/inputField :: input ('Name', 'name', 'text')}"/>
         <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}"/>

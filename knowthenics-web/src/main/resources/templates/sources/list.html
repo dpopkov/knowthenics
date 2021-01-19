@@ -16,6 +16,8 @@
         <th>Full Title</th>
         <th>Url</th>
         <th>Type</th>
+        <th>Description</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -25,9 +27,13 @@
         <td th:text="${source.fullTitle}"></td>
         <td th:text="${source.url}"></td>
         <td th:text="${source.sourceType}"></td>
+        <td th:text="${source.description}"></td>
+        <td><a href="#" th:href="@{/sources/{sourceId}/edit(sourceId=${source.id})}">Edit</a></td>
     </tr>
     </tbody>
 </table>
+
+<a th:href="@{/sources/new}" class="btn btn-default">Add Source</a>
 
 </body>
 </html>
