@@ -6,7 +6,28 @@
 </head>
 <body>
 
-<h1 th:text="'List of Key Terms'">List of Key Terms ...</h1>
+<h2 th:text="'List of Key Terms'">List of Key Terms ...</h2>
+
+<table id="keyterms" class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="keyterm : ${keyterms}">
+        <td th:text="${keyterm.id}"></td>
+        <td th:text="${keyterm.name}"></td>
+        <td th:text="${keyterm.description}"></td>
+        <td><a href="#" th:href="@{/keyterms/{keytermId}/edit(keytermId=${keyterm.id})}">Edit</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/keyterms/new}" class="btn btn-default">Add Key Term</a>
 
 </body>
 </html>

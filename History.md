@@ -2,6 +2,7 @@
 
 #### 2021-01-19
 * Add ability to add or update Source. Closes #39.
+* Add ability to add or update KeyTerm. Closes #40.
 
 #### 2021-01-18
 * Add ability to add or update Category. Closes #38.
