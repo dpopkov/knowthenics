@@ -2,6 +2,7 @@
 
 #### 2021-01-20
 * Add ability to add or update Answer. Closes #41.
+* Fix updating Question. Closes #42.
 
 #### 2021-01-19
 * Add ability to add or update Source. Closes #39.

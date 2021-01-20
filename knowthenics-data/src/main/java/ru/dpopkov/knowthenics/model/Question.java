@@ -74,4 +74,13 @@ public class Question extends BaseEntity {
         keyTerms.add(keyTerm);
         keyTerm.getQuestions().add(this);
     }
+
+    public void updateSimpleFieldsFrom(Question update) {
+        setCategory(update.getCategory());
+        setWordingEn(update.getWordingEn());
+        setWordingRu(update.getWordingRu());
+        setShortAnswerEn(update.getShortAnswerEn());
+        setShortAnswerRu(update.getShortAnswerRu());
+        setComment(update.getComment());
+    }
 }

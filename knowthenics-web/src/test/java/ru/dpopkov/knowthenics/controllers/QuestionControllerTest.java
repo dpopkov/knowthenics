@@ -143,12 +143,15 @@ class QuestionControllerTest {
     @Test
     void testProcessUpdateForm() throws Exception {
         final Long questionId = 10L;
-        Question question = Question.builder().id(questionId).build();
+        Question found = Question.builder().id(questionId).build();
+        Question saved = Question.builder().id(questionId).build();
+        when(questionService.findById(questionId)).thenReturn(found);
+        when(questionService.save(found)).thenReturn(saved);
 
-        when(questionService.save(ArgumentMatchers.any(Question.class))).thenReturn(question);
         mockMvc.perform(post("/questions/" + questionId + "/edit"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/questions/" + questionId));
-        verify(questionService).save(ArgumentMatchers.any(Question.class));
+        verify(questionService).findById(questionId);
+        verify(questionService).save(found);
     }
 }

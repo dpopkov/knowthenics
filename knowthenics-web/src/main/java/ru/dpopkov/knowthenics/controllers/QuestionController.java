@@ -108,8 +108,9 @@ public class QuestionController {
         if (result.hasErrors()) {
             return QUESTIONS_CREATE_OR_UPDATE_FORM;
         }
-        question.setId(Long.parseLong(questionId));
-        Question updated = questionService.save(question);
+        Question found = questionService.findById(Long.parseLong(questionId));
+        found.updateSimpleFieldsFrom(question);
+        Question updated = questionService.save(found);
         log.debug("Updated question ID {}", updated.getId());
         return "redirect:/questions/" + updated.getId();
     }
