@@ -30,4 +30,9 @@ public class Source extends BaseEntity {
         this.sourceType = sourceType;
         this.description = description;
     }
+
+    @Override
+    public String toString() {
+        return shortTitle;
+    }
 }

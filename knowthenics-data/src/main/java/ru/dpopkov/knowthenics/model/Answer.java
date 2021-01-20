@@ -63,4 +63,13 @@ public class Answer extends BaseEntity {
         keyTerms.add(keyTerm);
         keyTerm.getAnswers().add(this);
     }
+
+    public void updateSimpleFieldsFrom(Answer update) {
+        setWordingEn(update.getWordingEn());
+        setWordingRu(update.getWordingRu());
+        setAnswerType(update.getAnswerType());
+        setSource(update.getSource());
+        setSourceDetails(update.getSourceDetails());
+        setComment(update.getComment());
+    }
 }

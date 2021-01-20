@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-20
+* Add ability to add or update Answer. Closes #41.
+
 #### 2021-01-19
 * Add ability to add or update Source. Closes #39.
 * Add ability to add or update KeyTerm. Closes #40.

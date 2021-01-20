@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'answers')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer Details</title>
+</head>
+<body>
+
+<h2>Answer Details</h2>
+
+<table class="table table-striped" th:object="${answer}">
+    <tr>
+        <th>Question (en)</th>
+        <td th:text="*{question?.wordingEn}"></td>
+    </tr>
+    <tr>
+        <th>Question (ru)</th>
+        <td th:text="*{question?.wordingRu}"></td>
+    </tr>
+    <tr>
+        <th>Wording (en)</th>
+        <td th:text="*{wordingEn}"></td>
+    </tr>
+    <tr>
+        <th>Wording (ru)</th>
+        <td th:text="*{wordingRu}"></td>
+    </tr>
+    <tr>
+        <th>Answer Type</th>
+        <td th:text="*{answerType}"></td>
+    </tr>
+    <tr>
+        <th>Source</th>
+        <td th:text="*{source.shortTitle}"></td>
+    </tr>
+    <tr>
+        <th>Source Details</th>
+        <td th:text="*{sourceDetails}"></td>
+    </tr>
+    <tr>
+        <th>Comment</th>
+        <td th:text="*{comment}"></td>
+    </tr>
+</table>
+
+<a th:href="@{edit}" class="btn btn-default">Edit Answer</a>
+<a th:href="@{keyterms/add}" class="btn btn-default">Add Key Term</a>
+
+<br/>
+<br/>
+<h2>Key Terms</h2>
+
+<table class="table table-striped">
+    <tr>
+        <td th:each="keyTerm : ${answer.keyTerms}" th:text="${keyTerm.name}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
