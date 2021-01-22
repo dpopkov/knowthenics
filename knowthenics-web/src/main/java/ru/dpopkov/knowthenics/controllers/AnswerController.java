@@ -1,18 +1,13 @@
 package ru.dpopkov.knowthenics.controllers;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
-import ru.dpopkov.knowthenics.exceptions.web.NotFoundException;
 import ru.dpopkov.knowthenics.model.Answer;
 import ru.dpopkov.knowthenics.model.AnswerType;
-import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.model.Source;
 import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -53,7 +48,7 @@ public class AnswerController {
     public String show(@PathVariable String answerId, Model model) {
         Long id = Long.valueOf(answerId);
         log.debug("Showing details for Answer ID {}", id);
-        Answer answer = findAnswer(id);
+        Answer answer = answerService.findById(id);
         model.addAttribute(answer);
         return "answers/answer-details";
     }
@@ -61,7 +56,7 @@ public class AnswerController {
     @GetMapping("/questions/{questionId}/answers/new")
     public String initCreateForm(@PathVariable String questionId, Model model) {
         Answer answer = new Answer();
-        answer.setQuestion(findQuestion(Long.valueOf(questionId)));
+        answer.setQuestion(questionService.findById(Long.valueOf(questionId)));
         model.addAttribute("answer", answer);
         model.addAttribute("answerTypes", AnswerType.values());
         Set<Source> allSources = sourceService.findAll();
@@ -76,7 +71,7 @@ public class AnswerController {
         }
         Long id = Long.valueOf(questionId);
         log.debug("Processing creation Answer for Question ID {}", id);
-        answer.setQuestion(findQuestion(id));
+        answer.setQuestion(questionService.findById(id));
         Answer saved = answerService.save(answer);
         return "redirect:/questions/" + id + "/answers/" + saved.getId() + "/view";
     }
@@ -84,7 +79,7 @@ public class AnswerController {
     @GetMapping("/questions/*/answers/{answerId}/edit")
     public String initUpdateForm(@PathVariable String answerId, Model model) {
         Long answerIdLong = Long.valueOf(answerId);
-        Answer answer = findAnswer(answerIdLong);
+        Answer answer = answerService.findById(answerIdLong);
         model.addAttribute(answer);
         model.addAttribute("answerTypes", AnswerType.values());
         Set<Source> allSources = sourceService.findAll();
@@ -99,7 +94,7 @@ public class AnswerController {
             return ANSWERS_CREATE_OR_UPDATE_FORM;
         }
         Long answerIdLong = Long.valueOf(answerId);
-        Answer found = findAnswer(answerIdLong);
+        Answer found = answerService.findById(answerIdLong);
         found.updateSimpleFieldsFrom(answer);
         Answer saved = answerService.save(found);
         return "redirect:/questions/" + questionId + "/answers/" + saved.getId() + "/view";
@@ -110,38 +105,4 @@ public class AnswerController {
         return "notimplemented";
     }
 
-    private Question findQuestion(Long id) {
-        try {
-            return questionService.findById(id);
-        } catch (NotFoundInRepositoryException ex) {
-            throw new NotFoundException("Question not found for ID " + id, ex);
-        }
-    }
-
-    private Answer findAnswer(Long id) {
-        try {
-            return answerService.findById(id);
-        } catch (NotFoundInRepositoryException ex) {
-            throw new NotFoundException("Answer not found for ID " + id, ex);
-        }
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(NotFoundException.class)
-    public ModelAndView handleNotFound(Exception exception) {
-        return handleException(exception, HttpStatus.NOT_FOUND);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormat(Exception exception) {
-        return handleException(exception, HttpStatus.BAD_REQUEST);
-    }
-
-    private ModelAndView handleException(Exception exception, HttpStatus status) {
-        log.error("Handling {}: {}", exception.getClass().getSimpleName(), exception.getMessage());
-        ModelAndView modelAndView = new ModelAndView("errors/" + status.value() + "error");
-        modelAndView.addObject("exception", exception);
-        return modelAndView;
-    }
 }

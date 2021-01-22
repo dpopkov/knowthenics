@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
+import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -45,7 +46,9 @@ class QuestionControllerTest {
                 Question.builder().id(1L).build(),
                 Question.builder().id(2L).build()
         );
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(controller)
+                .setControllerAdvice(new ControllerExceptionHandler())
+                .build();
     }
 
     @SuppressWarnings("unchecked")
@@ -81,6 +84,15 @@ class QuestionControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("questions/question-details"))
                 .andExpect(model().attributeExists("question"));
+    }
+
+    @Test
+    void testShowQuestionNotFound() throws Exception {
+        when(questionService.findById(anyLong())).thenThrow(NotFoundInRepositoryException.class);
+
+        mockMvc.perform(get("/questions/10"))
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("errors/404error"));
     }
 
     @Test
