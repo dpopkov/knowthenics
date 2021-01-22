@@ -1,11 +1,13 @@
 package ru.dpopkov.knowthenics.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.exceptions.web.NotFoundException;
 import ru.dpopkov.knowthenics.model.Answer;
@@ -122,5 +124,24 @@ public class AnswerController {
         } catch (NotFoundInRepositoryException ex) {
             throw new NotFoundException("Answer not found for ID " + id, ex);
         }
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(Exception exception) {
+        return handleException(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormat(Exception exception) {
+        return handleException(exception, HttpStatus.BAD_REQUEST);
+    }
+
+    private ModelAndView handleException(Exception exception, HttpStatus status) {
+        log.error("Handling {}: {}", exception.getClass().getSimpleName(), exception.getMessage());
+        ModelAndView modelAndView = new ModelAndView("errors/" + status.value() + "error");
+        modelAndView.addObject("exception", exception);
+        return modelAndView;
     }
 }

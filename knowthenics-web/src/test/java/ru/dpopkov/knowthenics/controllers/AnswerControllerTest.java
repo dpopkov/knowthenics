@@ -67,8 +67,18 @@ class AnswerControllerTest {
         when(answerService.findById(answerId)).thenThrow(NotFoundInRepositoryException.class);
 
         mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("errors/404error"));
         verify(answerService).findById(answerId);
+    }
+
+    @Test
+    void testShowBadId() throws Exception {
+        final String badId = "not_a_number";
+        mockMvc.perform(get("/questions/10/answers/" + badId + "/view"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("errors/400error"));
+        verifyNoInteractions(answerService);
     }
 
     @Test

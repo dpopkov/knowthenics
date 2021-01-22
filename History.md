@@ -2,6 +2,7 @@
 
 #### 2021-01-22
 * Add Exception with ResponseStatus annotation and use it in Controllers. Closes #43.
+* Add Exception Handler and error pages. Closes #44.
 
 #### 2021-01-20
 * Add ability to add or update Answer. Closes #41.

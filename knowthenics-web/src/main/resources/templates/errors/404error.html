@@ -3,11 +3,16 @@
       th:replace="~{fragments/layout :: layout (~{::body},'error')}">
 <head>
     <meta charset="UTF-8">
-    <title>Not Implemented</title>
+    <title>404 Not Found</title>
 </head>
 <body>
 
-<h2 th:text="'Not Implemented Yet !!!'">Not Implemented</h2>
+<h2>404 Not Found</h2>
+<div class="row">
+    <div class="col-md-12">
+        <p th:text="${exception.getMessage()}">Error message</p>
+    </div>
+</div>
 
 </body>
 </html>
