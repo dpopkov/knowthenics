@@ -8,6 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.Answer;
 import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -49,6 +50,28 @@ class AnswerControllerTest {
     }
 
     @Test
+    void testShow() throws Exception {
+        final Long answerId = 20L;
+        when(answerService.findById(answerId)).thenReturn(Answer.builder().id(answerId).build());
+
+        mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("answer"))
+                .andExpect(view().name("answers/answer-details"));
+        verify(answerService).findById(answerId);
+    }
+
+    @Test
+    void testShowNotFound() throws Exception {
+        final Long answerId = 20L;
+        when(answerService.findById(answerId)).thenThrow(NotFoundInRepositoryException.class);
+
+        mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
+                .andExpect(status().isNotFound());
+        verify(answerService).findById(answerId);
+    }
+
+    @Test
     void testInitCreateForm() throws Exception {
         final Long questionId = 10L;
         mockMvc.perform(get("/questions/" + questionId + "/answers/new"))
@@ -59,6 +82,17 @@ class AnswerControllerTest {
                 .andExpect(view().name("answers/create-or-update-form"));
         verify(sourceService).findAll();
         verify(questionService).findById(questionId);
+    }
+
+    @Test
+    void testInitCreateFormQuestionNotFound() throws Exception {
+        final Long questionId = 10L;
+        when(questionService.findById(questionId)).thenThrow(NotFoundInRepositoryException.class);
+
+        mockMvc.perform(get("/questions/" + questionId + "/answers/new"))
+                .andExpect(status().isNotFound());
+        verify(questionService).findById(questionId);
+        verifyNoInteractions(sourceService);
     }
 
     @Test
