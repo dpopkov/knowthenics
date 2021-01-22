@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.Category;
 import ru.dpopkov.knowthenics.repositories.CategoryRepository;
 
@@ -55,8 +56,7 @@ class CategorySDJpaServiceTest {
         when(categoryRepository.findById(anyLong())).thenReturn(Optional.empty());
 
         final Long theId = 123L;
-        Category found = categoryService.findById(theId);
-        assertNull(found);
+        assertThrows(NotFoundInRepositoryException.class, () -> categoryService.findById(theId));
         verify(categoryRepository).findById(theId);
     }
 

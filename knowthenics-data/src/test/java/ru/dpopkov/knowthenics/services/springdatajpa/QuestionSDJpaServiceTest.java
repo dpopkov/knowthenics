@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.repositories.QuestionRepository;
 
@@ -45,8 +46,7 @@ class QuestionSDJpaServiceTest {
     @Test
     void testFindByIdNotExisting() {
         when(repository.findById(id1)).thenReturn(Optional.empty());
-        Question found = service.findById(id1);
-        assertNull(found);
+        assertThrows(NotFoundInRepositoryException.class, () -> service.findById(id1));
         verify(repository).findById(id1);
     }
 

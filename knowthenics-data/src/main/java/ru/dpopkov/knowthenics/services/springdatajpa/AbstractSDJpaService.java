@@ -1,10 +1,12 @@
 package ru.dpopkov.knowthenics.services.springdatajpa;
 
 import org.springframework.data.repository.CrudRepository;
+import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.BaseEntity;
 import ru.dpopkov.knowthenics.services.CrudService;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public abstract class AbstractSDJpaService<T extends BaseEntity> implements CrudService<T, Long> {
@@ -24,7 +26,11 @@ public abstract class AbstractSDJpaService<T extends BaseEntity> implements Crud
 
     @Override
     public T findById(Long id) {
-        return crudRepository.findById(id).orElse(null);
+        Optional<T> byId = crudRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId.get();
+        }
+        throw new NotFoundInRepositoryException("Entity not found for ID: " + id);
     }
 
     @Override
