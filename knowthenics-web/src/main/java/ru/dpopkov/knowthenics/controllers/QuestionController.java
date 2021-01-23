@@ -7,6 +7,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.dpopkov.knowthenics.model.Category;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -35,6 +36,11 @@ public class QuestionController {
     @InitBinder
     public void setAllowedFields(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+    }
+
+    @ModelAttribute("categories")
+    public Set<Category> populateCategories() {
+        return categoryService.findAll();
     }
 
     @GetMapping({"list", "list.html", "index", "index.html"})
@@ -80,13 +86,13 @@ public class QuestionController {
     @GetMapping("/new")
     public String initCreateForm(Model model) {
         model.addAttribute(new Question());
-        model.addAttribute("categories", categoryService.findAll());
         return QUESTIONS_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/new")
     public String processCreateForm(@Valid Question question, BindingResult result) {
         if (result.hasErrors()) {
+            logErrors(result);
             return QUESTIONS_CREATE_OR_UPDATE_FORM;
         }
         Question created = questionService.save(question);
@@ -99,13 +105,13 @@ public class QuestionController {
         Long id = Long.parseLong(questionId);
         Question question = questionService.findById(id);
         model.addAttribute(question);
-        model.addAttribute("categories", categoryService.findAll());
         return QUESTIONS_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/{questionId}/edit")
     public String processUpdateForm(@Valid Question question, BindingResult result, @PathVariable String questionId) {
         if (result.hasErrors()) {
+            logErrors(result);
             return QUESTIONS_CREATE_OR_UPDATE_FORM;
         }
         Question found = questionService.findById(Long.parseLong(questionId));
@@ -113,5 +119,9 @@ public class QuestionController {
         Question updated = questionService.save(found);
         log.debug("Updated question ID {}", updated.getId());
         return "redirect:/questions/" + updated.getId();
+    }
+
+    private void logErrors(BindingResult result) {
+        result.getAllErrors().forEach(err -> log.error(err.toString()));
     }
 }

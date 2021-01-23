@@ -132,10 +132,23 @@ class QuestionControllerTest {
         when(questionService.save(ArgumentMatchers.any(Question.class))).thenReturn(
                 Question.builder().id(questionId).build()
         );
-        mockMvc.perform(post("/questions/new"))
+        mockMvc.perform(post("/questions/new")
+                .param("wordingEn", "wordingEn-value")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/questions/" + questionId));
         verify(questionService).save(ArgumentMatchers.any(Question.class));
+    }
+
+    @Test
+    void testProcessCreateFormValidationFails() throws Exception {
+        mockMvc.perform(post("/questions/new")
+                .param("wordingEn", "")
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("question"))
+                .andExpect(view().name("questions/create-or-update-form"));
+        verifyNoInteractions(questionService);
     }
 
     @Test
@@ -160,10 +173,23 @@ class QuestionControllerTest {
         when(questionService.findById(questionId)).thenReturn(found);
         when(questionService.save(found)).thenReturn(saved);
 
-        mockMvc.perform(post("/questions/" + questionId + "/edit"))
+        mockMvc.perform(post("/questions/" + questionId + "/edit")
+                .param("wordingEn", "wordingEn-value")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/questions/" + questionId));
         verify(questionService).findById(questionId);
         verify(questionService).save(found);
+    }
+
+    @Test
+    void testProcessUpdateFormValidationFails() throws Exception {
+        mockMvc.perform(post("/questions/10/edit")
+                .param("wordingEn", "")
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("question"))
+                .andExpect(view().name("questions/create-or-update-form"));
+        verifyNoInteractions(questionService);
     }
 }

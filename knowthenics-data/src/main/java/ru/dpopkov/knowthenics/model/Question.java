@@ -3,6 +3,8 @@ package ru.dpopkov.knowthenics.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,15 +20,20 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @NotBlank
+    @Size(min = 8, max = 255)
     @Column(name = "wording_en")
     private String wordingEn;
 
+    @Size(max = 255)
     @Column(name = "wording_ru")
     private String wordingRu;
 
+    @Size(max = 255)
     @Column(name = "short_answer_en")
     private String shortAnswerEn;
 
+    @Size(max = 255)
     @Column(name = "short_answer_ru")
     private String shortAnswerRu;
 
@@ -41,6 +48,7 @@ public class Question extends BaseEntity {
     @JoinColumn(name = "question_stat_id", referencedColumnName = "id")
     private QuestionDrillStat stat;
 
+    @Size(max = 255)
     @Column(name = "comment")
     private String comment;
 

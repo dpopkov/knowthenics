@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-23
+* Add validation to Question and QuestionController.
+
 #### 2021-01-22
 * Add Exception with ResponseStatus annotation and use it in Controllers. Closes #43.
 * Add Exception Handler and error pages. Closes #44.
