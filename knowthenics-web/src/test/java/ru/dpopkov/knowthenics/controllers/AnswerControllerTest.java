@@ -104,7 +104,6 @@ class AnswerControllerTest {
         mockMvc.perform(get("/questions/" + questionId + "/answers/new"))
                 .andExpect(status().isNotFound());
         verify(questionService).findById(questionId);
-        verifyNoInteractions(sourceService);
     }
 
     @Test
@@ -112,12 +111,24 @@ class AnswerControllerTest {
         final Long questionId = 10L;
         final Long answerId = 20L;
         when(answerService.save(any(Answer.class))).thenReturn(Answer.builder().id(answerId).build());
-        mockMvc.perform(post("/questions/" + questionId + "/answers/new"))
+        mockMvc.perform(post("/questions/" + questionId + "/answers/new")
+                .param("wordingEn", "wordingEn-value")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name(
                         "redirect:/questions/" + questionId + "/answers/" + answerId + "/view"));
         verify(questionService).findById(questionId);
         verify(answerService).save(any(Answer.class));
+    }
+
+    @Test
+    void testProcessCreateFormValidationFailed() throws Exception {
+        mockMvc.perform(post("/questions/10/answers/new")
+                .param("wordingEn", "")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("answers/create-or-update-form"));
+        verifyNoInteractions(answerService);
     }
 
     @Test
@@ -142,10 +153,22 @@ class AnswerControllerTest {
         Answer foundAnswer = Answer.builder().id(answerId).build();
         when(answerService.findById(answerId)).thenReturn(foundAnswer);
         when(answerService.save(foundAnswer)).thenReturn(Answer.builder().id(answerId).build());
-        mockMvc.perform(post("/questions/" + questionId + "/answers/" + answerId + "/edit"))
+        mockMvc.perform(post("/questions/" + questionId + "/answers/" + answerId + "/edit")
+                .param("wordingEn", "wordingEn-value")
+        )
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name(
                         "redirect:/questions/" + questionId + "/answers/" + answerId + "/view"));
         verify(answerService).save(foundAnswer);
+    }
+
+    @Test
+    void testProcessUpdateFormValidationFailed() throws Exception {
+        mockMvc.perform(post("/questions/10/answers/20/edit")
+                .param("wordingEn", "")
+        )
+                .andExpect(status().isOk())
+                .andExpect(view().name("answers/create-or-update-form"));
+        verifyNoInteractions(answerService);
     }
 }

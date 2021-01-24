@@ -53,25 +53,33 @@ public class AnswerController {
         return "answers/answer-details";
     }
 
+    @ModelAttribute("allSources")
+    public Set<Source> populateSources() {
+        return sourceService.findAll();
+    }
+
+    @ModelAttribute("answerTypes")
+    public AnswerType[] populateAnswerTypes() {
+        return AnswerType.values();
+    }
+
     @GetMapping("/questions/{questionId}/answers/new")
     public String initCreateForm(@PathVariable String questionId, Model model) {
         Answer answer = new Answer();
         answer.setQuestion(questionService.findById(Long.valueOf(questionId)));
         model.addAttribute("answer", answer);
-        model.addAttribute("answerTypes", AnswerType.values());
-        Set<Source> allSources = sourceService.findAll();
-        model.addAttribute("allSources", allSources);
         return ANSWERS_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/questions/{questionId}/answers/new")
     public String processCreateForm(@Valid Answer answer, BindingResult result, @PathVariable String questionId) {
-        if (result.hasErrors()) {
-            return ANSWERS_CREATE_OR_UPDATE_FORM;
-        }
         Long id = Long.valueOf(questionId);
         log.debug("Processing creation Answer for Question ID {}", id);
         answer.setQuestion(questionService.findById(id));
+        if (result.hasErrors()) {
+            logErrors(result);
+            return ANSWERS_CREATE_OR_UPDATE_FORM;
+        }
         Answer saved = answerService.save(answer);
         return "redirect:/questions/" + id + "/answers/" + saved.getId() + "/view";
     }
@@ -81,19 +89,20 @@ public class AnswerController {
         Long answerIdLong = Long.valueOf(answerId);
         Answer answer = answerService.findById(answerIdLong);
         model.addAttribute(answer);
-        model.addAttribute("answerTypes", AnswerType.values());
-        Set<Source> allSources = sourceService.findAll();
-        model.addAttribute("allSources", allSources);
         return ANSWERS_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/questions/{questionId}/answers/{answerId}/edit")
     public String processUpdateForm(@Valid Answer answer, BindingResult result,
                                     @PathVariable String questionId, @PathVariable String answerId) {
+        Long id = Long.valueOf(questionId);
+        Long answerIdLong = Long.valueOf(answerId);
+        log.debug("Processing updating Answer ID {} for Question ID {}", id, answerIdLong);
+        answer.setQuestion(questionService.findById(id));
         if (result.hasErrors()) {
+            logErrors(result);
             return ANSWERS_CREATE_OR_UPDATE_FORM;
         }
-        Long answerIdLong = Long.valueOf(answerId);
         Answer found = answerService.findById(answerIdLong);
         found.updateSimpleFieldsFrom(answer);
         Answer saved = answerService.save(found);
@@ -105,4 +114,7 @@ public class AnswerController {
         return "notimplemented";
     }
 
+    private void logErrors(BindingResult result) {
+        result.getAllErrors().forEach(err -> log.error(err.toString()));
+    }
 }

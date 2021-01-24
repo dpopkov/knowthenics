@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-24
+* Add validation to Answer and AnswerController. Closes #46.
+
 #### 2021-01-23
 * Add validation to Question and QuestionController.
 
