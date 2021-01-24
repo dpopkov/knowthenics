@@ -1,5 +1,6 @@
 package ru.dpopkov.knowthenics.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,6 +13,7 @@ import ru.dpopkov.knowthenics.services.SourceService;
 import javax.validation.Valid;
 
 @SuppressWarnings("SameReturnValue")
+@Slf4j
 @Controller
 @RequestMapping("/sources")
 public class SourceController {
@@ -30,6 +32,11 @@ public class SourceController {
         dataBinder.setDisallowedFields("id");
     }
 
+    @ModelAttribute("sourceTypes")
+    public SourceType[] populateSourceTypes() {
+        return SourceType.values();
+    }
+
     @RequestMapping({"", "/", "list", "list.html", "index", "index.html"})
     public String list(Model model) {
         model.addAttribute("sources", sourceService.findAll());
@@ -39,13 +46,13 @@ public class SourceController {
     @GetMapping("/new")
     public String initCreateForm(Model model) {
         model.addAttribute(new Source());
-        model.addAttribute("sourceTypes", SourceType.values());
         return SOURCES_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/new")
     public String processCreateForm(@Valid Source source, BindingResult result) {
         if (result.hasErrors()) {
+            logErrors(result);
             return SOURCES_CREATE_OR_UPDATE_FORM;
         }
         sourceService.save(source);
@@ -56,17 +63,21 @@ public class SourceController {
     public String initUpdateForm(@PathVariable String sourceId, Model model) {
         Source source = sourceService.findById(Long.parseLong(sourceId));
         model.addAttribute(source);
-        model.addAttribute("sourceTypes", SourceType.values());
         return SOURCES_CREATE_OR_UPDATE_FORM;
     }
 
     @PostMapping("/{sourceId}/edit")
     public String processUpdateForm(@Valid Source source, BindingResult result, @PathVariable String sourceId) {
+        source.setId(Long.parseLong(sourceId));
         if (result.hasErrors()) {
+            logErrors(result);
             return SOURCES_CREATE_OR_UPDATE_FORM;
         }
-        source.setId(Long.parseLong(sourceId));
         sourceService.save(source);
         return REDIRECT_SOURCES;
+    }
+
+    private void logErrors(BindingResult result) {
+        result.getAllErrors().forEach(err -> log.error(err.toString()));
     }
 }

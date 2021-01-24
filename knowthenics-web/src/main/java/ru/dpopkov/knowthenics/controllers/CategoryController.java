@@ -1,5 +1,6 @@
 package ru.dpopkov.knowthenics.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import ru.dpopkov.knowthenics.services.CategoryService;
 import javax.validation.Valid;
 
 @SuppressWarnings("SameReturnValue")
+@Slf4j
 @Controller
 @RequestMapping("/categories")
 public class CategoryController {
@@ -43,6 +45,7 @@ public class CategoryController {
     @PostMapping("/new")
     public String processCreateForm(@Valid Category category, BindingResult result) {
         if (result.hasErrors()) {
+            logErrors(result);
             return CATEGORIES_CREATE_OR_UPDATE_FORM;
         }
         categoryService.save(category);
@@ -58,11 +61,16 @@ public class CategoryController {
 
     @PostMapping("/{categoryId}/edit")
     public String processUpdateForm(@Valid Category category, BindingResult result, @PathVariable String categoryId) {
+        category.setId(Long.parseLong(categoryId));
         if (result.hasErrors()) {
+            logErrors(result);
             return CATEGORIES_CREATE_OR_UPDATE_FORM;
         }
-        category.setId(Long.parseLong(categoryId));
         categoryService.save(category);
         return "redirect:/categories";
+    }
+
+    private void logErrors(BindingResult result) {
+        result.getAllErrors().forEach(err -> log.error(err.toString()));
     }
 }

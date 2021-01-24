@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,7 +17,10 @@ import java.util.Set;
 @Entity
 @Table(name = "key_terms")
 public class KeyTerm extends BaseEntity {
+    @NotBlank
+    @Size(min = 2, max = 64)
     private String name;
+    @Size(max = 255)
     private String description;
 
     @ManyToMany(mappedBy = "keyTerms")

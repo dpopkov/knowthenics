@@ -1,5 +1,6 @@
 package ru.dpopkov.knowthenics.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import ru.dpopkov.knowthenics.services.KeyTermService;
 import javax.validation.Valid;
 
 @SuppressWarnings("SameReturnValue")
+@Slf4j
 @Controller
 @RequestMapping("/keyterms")
 public class KeyTermController {
@@ -44,6 +46,7 @@ public class KeyTermController {
     @PostMapping("/new")
     public String processCreateForm(@Valid KeyTerm keyTerm, BindingResult result) {
         if (result.hasErrors()) {
+            logErrors(result);
             return KEYTERMS_CREATE_OR_UPDATE_FORM;
         }
         keyTermService.save(keyTerm);
@@ -59,11 +62,16 @@ public class KeyTermController {
 
     @PostMapping("/{keytermId}/edit")
     public String processUpdateForm(@Valid KeyTerm keyTerm, BindingResult result, @PathVariable String keytermId) {
+        keyTerm.setId(Long.parseLong(keytermId));
         if (result.hasErrors()) {
+            logErrors(result);
             return KEYTERMS_CREATE_OR_UPDATE_FORM;
         }
-        keyTerm.setId(Long.parseLong(keytermId));
         keyTermService.save(keyTerm);
         return REDIRECT_KEYTERMS_LIST;
+    }
+
+    private void logErrors(BindingResult result) {
+        result.getAllErrors().forEach(err -> log.error(err.toString()));
     }
 }
