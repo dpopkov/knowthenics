@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-25
+* Refactor (Divide) Controllers that have groups of different URLs. Closes #48.
+
 #### 2021-01-24
 * Add validation to Answer and AnswerController. Closes #46.
 * Add validation to Category, KeyTerm, and Source. Closes #47.

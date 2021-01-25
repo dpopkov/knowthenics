@@ -14,8 +14,6 @@ import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.QuestionService;
 import ru.dpopkov.knowthenics.services.SourceService;
 
-import java.util.Set;
-
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -39,48 +37,6 @@ class AnswerControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .setControllerAdvice(new ControllerExceptionHandler())
                 .build();
-    }
-
-    @Test
-    void testList() throws Exception {
-        when(answerService.findAll()).thenReturn(Set.of());
-        mockMvc.perform(get("/answers"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("answers"))
-                .andExpect(view().name("answers/list"));
-        verify(answerService).findAll();
-    }
-
-    @Test
-    void testShow() throws Exception {
-        final Long answerId = 20L;
-        when(answerService.findById(answerId)).thenReturn(Answer.builder().id(answerId).build());
-
-        mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("answer"))
-                .andExpect(view().name("answers/answer-details"));
-        verify(answerService).findById(answerId);
-    }
-
-    @Test
-    void testShowNotFound() throws Exception {
-        final Long answerId = 20L;
-        when(answerService.findById(answerId)).thenThrow(NotFoundInRepositoryException.class);
-
-        mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
-                .andExpect(status().isNotFound())
-                .andExpect(view().name("errors/404error"));
-        verify(answerService).findById(answerId);
-    }
-
-    @Test
-    void testShowBadId() throws Exception {
-        final String badId = "not_a_number";
-        mockMvc.perform(get("/questions/10/answers/" + badId + "/view"))
-                .andExpect(status().isBadRequest())
-                .andExpect(view().name("errors/400error"));
-        verifyNoInteractions(answerService);
     }
 
     @Test
