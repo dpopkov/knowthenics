@@ -86,6 +86,7 @@ public class AnswerController {
         log.debug("Processing updating Answer ID {} for Question ID {}", id, answerIdLong);
         answer.setQuestion(questionService.findById(id));
         if (result.hasErrors()) {
+            answer.setId(answerIdLong);
             logErrors(result);
             return ANSWERS_CREATE_OR_UPDATE_FORM;
         }
