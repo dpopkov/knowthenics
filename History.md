@@ -4,6 +4,7 @@
 * Fix: When edit Answer after failed validation page displays Answer as 'New'. Closes #49.
 * Fix: Pages 'Find Questions', 'Question Details' do not highlight appropriate menu item. Closes #50.
 * Add textarea for big fields on 'Add Question' page.
+* Fix: When edit Question after failed validation page displays Question as 'New'.
 
 #### 2021-01-25
 * Refactor (Divide) Controllers that have groups of different URLs. Closes #48.

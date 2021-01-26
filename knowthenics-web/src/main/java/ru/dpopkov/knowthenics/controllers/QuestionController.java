@@ -110,11 +110,13 @@ public class QuestionController {
 
     @PostMapping("/{questionId}/edit")
     public String processUpdateForm(@Valid Question question, BindingResult result, @PathVariable String questionId) {
+        Long questionIdLong = Long.valueOf(questionId);
         if (result.hasErrors()) {
+            question.setId(questionIdLong);
             logErrors(result);
             return QUESTIONS_CREATE_OR_UPDATE_FORM;
         }
-        Question found = questionService.findById(Long.parseLong(questionId));
+        Question found = questionService.findById(questionIdLong);
         found.updateSimpleFieldsFrom(question);
         Question updated = questionService.save(found);
         log.debug("Updated question ID {}", updated.getId());
