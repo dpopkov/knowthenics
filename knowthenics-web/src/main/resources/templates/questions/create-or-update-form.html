@@ -8,7 +8,7 @@
 <body>
 
 <h2>Question</h2>
-<form th:object="${question}" class="form-horizontal" id="add-owner-form" method="post">
+<form th:object="${question}" class="form-horizontal" id="add-question-form" method="post">
     <div class="form-group has-feedback">
         <input th:replace="~{fragments/selectField :: select ('Category', 'category', ${categories})}"/>
         <input th:replace="~{fragments/inputField :: input ('Wording (en)', 'wordingEn', 'text')}"/>

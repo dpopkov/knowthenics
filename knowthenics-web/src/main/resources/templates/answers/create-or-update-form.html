@@ -25,8 +25,8 @@
                 <span th:text="${answer.question?.wordingRu}"></span>
             </div>
         </div>
-        <input th:replace="~{fragments/inputField :: input ('Wording (en)', 'wordingEn', 'text')}"/>
-        <input th:replace="~{fragments/inputField :: input ('Wording (ru)', 'wordingRu', 'text')}"/>
+        <input th:replace="~{fragments/textareaField :: input ('Wording (en)', 'wordingEn', 'add-answer-form')}"/>
+        <input th:replace="~{fragments/textareaField :: input ('Wording (ru)', 'wordingRu', 'add-answer-form')}"/>
         <input th:replace="~{fragments/selectField :: select ('Answer Type', 'answerType', ${answerTypes})}"/>
         <input th:replace="~{fragments/selectField :: select ('Source', 'source', ${allSources})}"/>
         <input th:replace="~{fragments/inputField :: input ('Source Details', 'sourceDetails', 'text')}"/>
