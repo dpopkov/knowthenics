@@ -1,5 +1,5 @@
 <!doctype html>
-<html th:fragment="layout (template, menu)">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout (template, menu)">
 
 <head>
 
@@ -68,7 +68,7 @@
             <span>Questions</span>
           </li>
 
-          <li th:replace="::menuItem ('/questions/find','find questions','find questions','search','Find Questions')">
+          <li th:replace="::menuItem ('/questions/find','find-questions','find questions','search','Find Questions')">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find questions</span>
           </li>
@@ -78,7 +78,7 @@
             <span>Answers</span>
           </li>
 
-          <li th:replace="::menuItem ('/answers/find','find answers','find answers','search','Find Answers')">
+          <li th:replace="::menuItem ('/answers/find','find-answers','find answers','search','Find Answers')">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find answers</span>
           </li>
