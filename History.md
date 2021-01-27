@@ -2,6 +2,7 @@
 
 #### 2021-01-27
 * Add links to view details to Answers list page.
+* Implement Find Answers.
 
 #### 2021-01-26
 * Fix: When edit Answer after failed validation page displays Answer as 'New'. Closes #49.

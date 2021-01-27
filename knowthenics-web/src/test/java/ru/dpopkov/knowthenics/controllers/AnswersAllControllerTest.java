@@ -14,8 +14,10 @@ import ru.dpopkov.knowthenics.services.AnswerService;
 
 import java.util.Set;
 
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,9 +79,29 @@ class AnswersAllControllerTest {
     }
 
     @Test
-    void testFind() throws Exception {
+    void testInitFindAnswerForm() throws Exception {
         mockMvc.perform(get("/answers/find"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("notimplemented"));
+                .andExpect(model().attributeExists("answer"))
+                .andExpect(view().name("answers/find-answers"));
+    }
+
+    @Test
+    void testProcessFindAnswerForm() throws Exception {
+        String search = "test";
+        String searchPattern = "%" + search + "%";
+        Set<Answer> answers = Set.of(
+                Answer.builder().id(1L).build(),
+                Answer.builder().id(2L).build()
+        );
+        when(answerService.findAllByWordingEnLike(searchPattern)).thenReturn(answers);
+        mockMvc.perform(post("/answers/find")
+                .param("wordingEn", search)
+        )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("answers"))
+                .andExpect(model().attribute("answers", hasSize(2)))
+                .andExpect(view().name("answers/list"));
+        verify(answerService).findAllByWordingEnLike(searchPattern);
     }
 }
