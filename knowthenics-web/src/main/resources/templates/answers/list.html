@@ -20,8 +20,10 @@
     </thead>
     <tbody>
     <tr th:each="answer : ${answers}">
-        <td th:text="${answer.id}"></td>
-        <td th:text="${answer.question?.getWordingEn()}"></td>
+        <td><a href="#" th:text="'#' + ${answer.id}"
+               th:href="@{/questions/{questionId}/answers/{answerId}/view(questionId=${answer.question.id},answerId=${answer.id})}">
+            Id</a></td>
+        <td th:text="${answer.question.getWordingEn()}"></td>
         <td th:text="${answer.wordingEn}"></td>
         <td th:text="${answer.answerType}"></td>
         <td th:text="${answer.source?.getShortTitle()}"></td>

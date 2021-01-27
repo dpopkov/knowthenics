@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-27
+* Add links to view details to Answers list page.
+
 #### 2021-01-26
 * Fix: When edit Answer after failed validation page displays Answer as 'New'. Closes #49.
 * Fix: Pages 'Find Questions', 'Question Details' do not highlight appropriate menu item. Closes #50.
