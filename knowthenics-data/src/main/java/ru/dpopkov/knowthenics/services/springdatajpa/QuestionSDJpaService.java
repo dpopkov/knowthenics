@@ -3,10 +3,12 @@ package ru.dpopkov.knowthenics.services.springdatajpa;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
+import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.repositories.QuestionRepository;
 import ru.dpopkov.knowthenics.services.QuestionService;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -30,5 +32,16 @@ public class QuestionSDJpaService extends AbstractSDJpaService<Question> impleme
     public Set<Question> findAllByWordingEnLike(String searchPattern) {
         QuestionRepository questionRepository = (QuestionRepository) super.crudRepository;
         return questionRepository.findAllByWordingEnLike(searchPattern);
+    }
+
+    @Override
+    public Set<Question> findByKeyTerm(KeyTerm keyTerm) {
+        Set<Question> result = new HashSet<>();
+        findAll().forEach(q -> {
+            if (q.getKeyTerms() != null && q.getKeyTerms().contains(keyTerm)) {
+                result.add(q);
+            }
+        });
+        return result;
     }
 }

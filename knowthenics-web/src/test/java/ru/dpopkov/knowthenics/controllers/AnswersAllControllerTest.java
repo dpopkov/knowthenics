@@ -10,7 +10,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.Answer;
+import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.services.AnswerService;
+import ru.dpopkov.knowthenics.services.KeyTermService;
 
 import java.util.Set;
 
@@ -24,6 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AnswersAllControllerTest {
     @Mock
     AnswerService answerService;
+    @Mock
+    KeyTermService keyTermService;
     @InjectMocks
     AnswersAllController controller;
 
@@ -103,5 +107,18 @@ class AnswersAllControllerTest {
                 .andExpect(model().attribute("answers", hasSize(2)))
                 .andExpect(view().name("answers/list"));
         verify(answerService).findAllByWordingEnLike(searchPattern);
+    }
+
+    @Test
+    void testFindByKeyTerm() throws Exception {
+        final Long keyTermId = 20L;
+        KeyTerm keyTerm = KeyTerm.builder().id(keyTermId).build();
+        when(keyTermService.findById(keyTermId)).thenReturn(keyTerm);
+        mockMvc.perform(get("/answers/findByKeyTerm/" + keyTermId))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("answers"))
+                .andExpect(view().name("answers/list"));
+        verify(keyTermService).findById(keyTermId);
+        verify(answerService).findByKeyTerm(keyTerm);
     }
 }

@@ -31,10 +31,17 @@ public class KeyTermController {
         this.keyTermService = keyTermService;
     }
 
-    @RequestMapping({"", "/", "list", "list.html", "index", "index.html"})
+    @RequestMapping({"", "/", "/list", "/list.html", "/index", "/index.html"})
     public String list(Model model) {
         model.addAttribute("keyterms", keyTermService.findAll());
         return "keyterms/list";
+    }
+
+    @GetMapping("/{keyTermId}")
+    public String show(@PathVariable String keyTermId, Model model) {
+        Long id = Long.valueOf(keyTermId);
+        model.addAttribute(keyTermService.findById(id));
+        return "keyterms/keyterm-details";
     }
 
     @GetMapping("/new")

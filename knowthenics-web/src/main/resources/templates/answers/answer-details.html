@@ -52,7 +52,10 @@
 
 <table class="table table-striped">
     <tr>
-        <td th:each="keyTerm : ${answer.keyTerms}" th:text="${keyTerm.name}"></td>
+        <td th:each="keyTerm : ${answer.keyTerms}">
+            <a href="#" th:text="${keyTerm.name}"
+               th:href="@{/keyterms/{keytermId}(keytermId=${keyTerm.id})}">Name</a>
+        </td>
     </tr>
 </table>
 

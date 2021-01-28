@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.dpopkov.knowthenics.model.Answer;
+import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.services.AnswerService;
+import ru.dpopkov.knowthenics.services.KeyTermService;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -21,9 +23,11 @@ public class AnswersAllController {
     private static final String ANSWERS_FIND_ANSWERS = "answers/find-answers";
 
     private final AnswerService answerService;
+    private final KeyTermService keyTermService;
 
-    public AnswersAllController(AnswerService answerService) {
+    public AnswersAllController(AnswerService answerService, KeyTermService keyTermService) {
         this.answerService = answerService;
+        this.keyTermService = keyTermService;
     }
 
     @GetMapping({"/answers", "/answers/", "/answers/list", "/answers/list.html", "/answers/index", "/answers/index.html"})
@@ -64,5 +68,13 @@ public class AnswersAllController {
             model.addAttribute("answers", found);
             return "answers/list";
         }
+    }
+
+    @GetMapping("/answers/findByKeyTerm/{keyTermId}")
+    public String findByKeyTerm(@PathVariable Long keyTermId, Model model) {
+        KeyTerm keyTerm = keyTermService.findById(keyTermId);
+        Set<Answer> found = answerService.findByKeyTerm(keyTerm);
+        model.addAttribute("answers", found);
+        return "answers/list";
     }
 }

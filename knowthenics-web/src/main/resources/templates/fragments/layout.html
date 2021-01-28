@@ -58,9 +58,14 @@
             <span>Home</span>
           </li>
 
-          <li th:replace="::menuItem ('/categories','categories','categories','th-list','categories')">
+          <li th:replace="::menuItem ('/categories','categories','categories','th-list','Categories')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Categories</span>
+          </li>
+
+          <li th:replace="::menuItem ('/keyterms','keyterms','keyterms','th-list','KeyTerms')">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span>Key Terms</span>
           </li>
 
           <li th:replace="::menuItem ('/questions','questions','Questions','th-list','Questions')">
@@ -81,12 +86,6 @@
           <li th:replace="::menuItem ('/answers/find','find-answers','find answers','search','Find Answers')">
             <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             <span>Find answers</span>
-          </li>
-
-          <li
-            th:replace="::menuItem ('/oups','error','trigger a RuntimeException to see how it is handled','warning-sign','Error')">
-            <span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
-            <span>Error</span>
           </li>
 
         </ul>

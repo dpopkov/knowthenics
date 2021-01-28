@@ -2,6 +2,7 @@ package ru.dpopkov.knowthenics.services.map;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
+import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.services.QuestionService;
 
@@ -16,5 +17,11 @@ public class QuestionMapService extends AbstractMapService<Question> implements 
         return super.findAll().stream()
                 .filter(question -> question.getWordingEn() != null && question.getWordingEn().contains(searchPattern))
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<Question> findByKeyTerm(KeyTerm keyTerm) {
+        // todo: implement
+        throw new RuntimeException("Not Implemented yet");
     }
 }

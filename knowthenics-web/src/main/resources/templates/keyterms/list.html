@@ -19,7 +19,9 @@
     </thead>
     <tbody>
     <tr th:each="keyterm : ${keyterms}">
-        <td th:text="${keyterm.id}"></td>
+        <td>
+            <a href="#" th:text="'#' + ${keyterm.id}" th:href="@{/keyterms/{keytermId}(keytermId=${keyterm.id})}">Id</a>
+        </td>
         <td th:text="${keyterm.name}"></td>
         <td th:text="${keyterm.description}"></td>
         <td><a href="#" th:href="@{/keyterms/{keytermId}/edit(keytermId=${keyterm.id})}">Edit</a></td>

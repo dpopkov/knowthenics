@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-28
+* Add KeyTerm details and ability to find Questions and Answers by KeyTerm. Closes #51.
+
 #### 2021-01-27
 * Add links to view details to Answers list page.
 * Implement Find Answers.

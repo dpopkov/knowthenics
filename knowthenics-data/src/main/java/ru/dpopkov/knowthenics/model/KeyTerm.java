@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -41,5 +42,28 @@ public class KeyTerm extends BaseEntity {
         this.description = description;
         this.questions = questions != null ? questions : new HashSet<>();
         this.answers = answers != null ? answers : new HashSet<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof KeyTerm)) {
+            return false;
+        }
+        KeyTerm keyTerm = (KeyTerm) o;
+        Long id = getId();
+        Long otherId = keyTerm.getId();
+        if (id == null && otherId != null || id != null & otherId == null) {
+            return false;
+        } else {
+            return (id != null && id.equals(otherId)) && Objects.equals(getName(), keyTerm.getName());
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName());
     }
 }

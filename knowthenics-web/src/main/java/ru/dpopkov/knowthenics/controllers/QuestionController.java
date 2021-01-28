@@ -8,8 +8,10 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ru.dpopkov.knowthenics.model.Category;
+import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.services.CategoryService;
+import ru.dpopkov.knowthenics.services.KeyTermService;
 import ru.dpopkov.knowthenics.services.QuestionService;
 
 import javax.validation.Valid;
@@ -27,10 +29,12 @@ public class QuestionController {
 
     private final QuestionService questionService;
     private final CategoryService categoryService;
+    private final KeyTermService keyTermService;
 
-    public QuestionController(QuestionService questionService, CategoryService categoryService) {
+    public QuestionController(QuestionService questionService, CategoryService categoryService, KeyTermService keyTermService) {
         this.questionService = questionService;
         this.categoryService = categoryService;
+        this.keyTermService = keyTermService;
     }
 
     @InitBinder
@@ -81,6 +85,14 @@ public class QuestionController {
             model.addAttribute("questions", questions);
             return "questions/list";
         }
+    }
+
+    @GetMapping("/findByKeyTerm/{keyTermId}")
+    public String findByKeyTerm(@PathVariable Long keyTermId, Model model) {
+        KeyTerm keyTerm = keyTermService.findById(keyTermId);
+        Set<Question> found = questionService.findByKeyTerm(keyTerm);
+        model.addAttribute("questions", found);
+        return "questions/list";
     }
 
     @GetMapping("/new")
