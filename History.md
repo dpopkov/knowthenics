@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-29
+* Add JaCoCo code coverage.
+
 #### 2021-01-28
 * Add KeyTerm details and ability to find Questions and Answers by KeyTerm. Closes #51.
 
