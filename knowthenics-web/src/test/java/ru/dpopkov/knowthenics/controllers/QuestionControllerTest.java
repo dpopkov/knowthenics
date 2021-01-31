@@ -112,7 +112,7 @@ class QuestionControllerTest {
     void testProcessFindQuestionForm() throws Exception {
         when(questionService.findAllByWordingEnLike(anyString())).thenReturn(questions);
 
-        mockMvc.perform(get("/questions"))
+        mockMvc.perform(post("/questions"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("questions"))
                 .andExpect(view().name("questions/list"));

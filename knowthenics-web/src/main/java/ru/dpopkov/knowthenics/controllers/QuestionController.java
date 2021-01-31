@@ -68,7 +68,7 @@ public class QuestionController {
         return QUESTIONS_FIND_QUESTIONS;
     }
 
-    @GetMapping("")
+    @PostMapping("/find")
     public String processFindQuestionForm(Question question, BindingResult result, Model model) {
         if (question.getWordingEn() == null) {
             question.setWordingEn("");
