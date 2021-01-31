@@ -7,9 +7,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import ru.dpopkov.knowthenics.model.Answer;
 import ru.dpopkov.knowthenics.model.Category;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
+import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.KeyTermService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -30,11 +32,14 @@ public class QuestionController {
     private final QuestionService questionService;
     private final CategoryService categoryService;
     private final KeyTermService keyTermService;
+    private final AnswerService answerService;
 
-    public QuestionController(QuestionService questionService, CategoryService categoryService, KeyTermService keyTermService) {
+    public QuestionController(QuestionService questionService, CategoryService categoryService,
+                              KeyTermService keyTermService, AnswerService answerService) {
         this.questionService = questionService;
         this.categoryService = categoryService;
         this.keyTermService = keyTermService;
+        this.answerService = answerService;
     }
 
     @InitBinder
@@ -60,6 +65,16 @@ public class QuestionController {
         Question question = questionService.findById(id);
         modelAndView.addObject(question);
         return modelAndView;
+    }
+
+    @PostMapping("/{questionId}/prefer")
+    public String setPreferredAnswer(@PathVariable String questionId, @RequestParam Long preferredAnswerId) {
+        Long id = Long.valueOf(questionId);
+        Question question = questionService.findById(id);
+        Answer preferred = answerService.findById(preferredAnswerId);
+        question.setPreferredAnswer(preferred);
+        questionService.save(question);
+        return "redirect:/questions/" + id;
     }
 
     @GetMapping("/find")

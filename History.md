@@ -2,6 +2,7 @@
 
 #### 2021-01-31
 * Implement Combined Search of Questions and Answers. Closes #56.
+* Add ability for Question to choose the preferred Answer. Closes #53.
 
 #### 2021-01-29
 * Add JaCoCo code coverage.

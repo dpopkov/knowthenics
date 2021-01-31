@@ -63,43 +63,58 @@
 <br/>
 <h2>Answers</h2>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Answer</th>
-        <th>Ответ</th>
-        <th>Type</th>
-        <th>Source</th>
-        <th>Source Details</th>
-        <th>Comment</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="answer : ${question.answers}">
-        <td th:text="${answer.wordingEn}"></td>
-        <td th:text="${answer.wordingRu}"></td>
-        <td th:text="${answer.answerType}"></td>
-        <td th:text="${answer.source?.shortTitle}"></td>
-        <td th:text="${answer.sourceDetails}"></td>
-        <td th:text="${answer.comment}"></td>
-        <td>
-            <table class="table-condensed">
-                <tr>
-                    <td><a href="#"
-                           th:href="@{{questionId}/answers/{answerId}/view(questionId=${question.id},answerId=${answer.id})}">
-                        View</a></td>
-                </tr>
-                <tr>
-                    <td><a href="#"
-                           th:href="@{{questionId}/answers/{answerId}/edit(questionId=${question.id},answerId=${answer.id})}">
-                        Edit</a></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
+<form th:action="@{{id}/prefer(id=${question.id})}" method="post">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Prefer</th>
+            <th>Answer</th>
+            <th>Ответ</th>
+            <th>Type</th>
+            <th>Source</th>
+            <th>Source Details</th>
+            <th>Comment</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="answer : ${question.answers}">
+            <td>
+                <input type="radio" class="form-check-input" name="preferredAnswerId"
+                       th:value="${answer.id}"
+                       th:checked="${answer.id == question.preferredAnswer.id}">
+            </td>
+            <td th:text="${answer.wordingEn}"></td>
+            <td th:text="${answer.wordingRu}"></td>
+            <td th:text="${answer.answerType}"></td>
+            <td th:text="${answer.source?.shortTitle}"></td>
+            <td th:text="${answer.sourceDetails}"></td>
+            <td th:text="${answer.comment}"></td>
+            <td>
+                <table class="table-condensed">
+                    <tr>
+                        <td><a href="#"
+                               th:href="@{{questionId}/answers/{answerId}/view(questionId=${question.id},answerId=${answer.id})}">
+                            View</a></td>
+                    </tr>
+                    <tr>
+                        <td><a href="#"
+                               th:href="@{{questionId}/answers/{answerId}/edit(questionId=${question.id},answerId=${answer.id})}">
+                            Edit</a></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="form-group">
+        <div class="col-sm-offset-0 col-sm-10">
+            <button class="btn btn-default" type="submit">
+                Save Selected Preferred Answer
+            </button>
+        </div>
+    </div>
+</form>
 
 </body>
 </html>

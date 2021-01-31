@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
+import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.CategoryService;
 import ru.dpopkov.knowthenics.services.KeyTermService;
 import ru.dpopkov.knowthenics.services.QuestionService;
@@ -36,6 +37,8 @@ class QuestionControllerTest {
     CategoryService categoryService;
     @Mock
     KeyTermService keyTermService;
+    @Mock
+    AnswerService answerService;
     @Mock
     Model model;
     @InjectMocks
@@ -97,6 +100,22 @@ class QuestionControllerTest {
         mockMvc.perform(get("/questions/10"))
                 .andExpect(status().isNotFound())
                 .andExpect(view().name("errors/404error"));
+    }
+
+    @Test
+    void testSetPreferredAnswer() throws Exception {
+        final Long questionId = 10L;
+        final Long preferredId = 20L;
+        when(questionService.findById(questionId)).thenReturn(Question.builder().id(questionId).build());
+
+        mockMvc.perform(post("/questions/" + questionId + "/prefer")
+                .param("preferredAnswerId", preferredId.toString())
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/questions/" + questionId));
+        verify(questionService).findById(questionId);
+        verify(answerService).findById(preferredId);
+        verify(questionService).save(ArgumentMatchers.any(Question.class));
     }
 
     @Test
