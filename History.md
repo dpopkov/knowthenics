@@ -1,5 +1,8 @@
 # History
 
+#### 2021-01-31
+* Implement Combined Search of Questions and Answers. Closes #56.
+
 #### 2021-01-29
 * Add JaCoCo code coverage.
 
