@@ -31,8 +31,8 @@ class CategorySDJpaServiceTest {
     @Test
     void testFindAll() {
         var data = List.of(
-                Category.builder().name("Core").build(),
-                Category.builder().name("SQL").build()
+                Category.builder().id(1L).name("Core").build(),
+                Category.builder().id(2L).name("SQL").build()
         );
         when(categoryRepository.findAll()).thenReturn(data);
 
