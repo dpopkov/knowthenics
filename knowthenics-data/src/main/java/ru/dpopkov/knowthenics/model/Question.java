@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -90,5 +91,27 @@ public class Question extends BaseEntity {
         setShortAnswerEn(update.getShortAnswerEn());
         setShortAnswerRu(update.getShortAnswerRu());
         setComment(update.getComment());
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof Question)) {
+            return false;
+        }
+        if (!super.equals(other)) {
+            return false;
+        }
+        Question question = (Question) other;
+        return Objects.equals(category, question.category) &&
+                Objects.equals(wordingEn, question.wordingEn) &&
+                Objects.equals(wordingRu, question.wordingRu);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), category, wordingEn, wordingRu);
     }
 }

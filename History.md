@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-04
+* Add ability to add and edit Collections of Questions. Closes #57.
+
 #### 2021-01-31
 * Implement Combined Search of Questions and Answers. Closes #56.
 * Add ability for Question to choose the preferred Answer. Closes #53.

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'qcollections')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection of Questions Details</title>
+</head>
+<body>
+
+<h2>Collection of Questions Details</h2>
+
+<table class="table table-striped" th:object="${qCollection}">
+    <tr>
+        <th>Title</th>
+        <td th:text="*{title}"></td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td th:text="*{description}"></td>
+    </tr>
+</table>
+
+<h2>Questions in Collection</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Questions (En)</th>
+        <th>Questions (Ru)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="question : ${qCollection.questions}">
+        <td th:text="*{question.wordingEn}"></td>
+        <td th:text="*{question.wordingRu}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{{id}/edit(id=${qCollection.id})}" class="btn btn-default">Edit Collection</a>
+
+</body>
+</html>

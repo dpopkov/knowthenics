@@ -18,15 +18,17 @@ public class DataLoader implements CommandLineRunner {
     private final QuestionService questionService;
     private final SourceService sourceService;
     private final KeyTermService keyTermService;
+    private final QCollectionService qCollectionService;
 
     public DataLoader(AnswerService answerService, CategoryService categoryService,
                       QuestionService questionService, SourceService sourceService,
-                      KeyTermService keyTermService) {
+                      KeyTermService keyTermService, QCollectionService qCollectionService) {
         this.answerService = answerService;
         this.categoryService = categoryService;
         this.questionService = questionService;
         this.sourceService = sourceService;
         this.keyTermService = keyTermService;
+        this.qCollectionService = qCollectionService;
     }
 
     /**
@@ -51,8 +53,8 @@ public class DataLoader implements CommandLineRunner {
         keyTermService.save(databaseTerm);
         log.info("KeyTerms loaded.");
 
-        saveQuestion(catCore, "What is JVM?", "Java Virtual Machine");
-        saveQuestion(catCore, "What is JRE?", "Java Runtime Environment", jreTerm);
+        Question jvm = saveQuestion(catCore, "What is JVM?", "Java Virtual Machine");
+        Question jre = saveQuestion(catCore, "What is JRE?", "Java Runtime Environment", jreTerm);
         Question jdk = saveQuestion(catCore, "What is JDK?", "Java Development Kit", jdkTerm);
         Question jdbc = saveQuestion(catJdbc, "What is JDBC?", "Java database connectivity",
                 jdbcTerm, databaseTerm);
@@ -88,6 +90,15 @@ public class DataLoader implements CommandLineRunner {
         jdbc.setPreferredAnswer(ansJdbc);
         questionService.save(jdbc);
         log.info("Answers loaded.");
+
+        QCollection coreJavaQuestions = new QCollection();
+        coreJavaQuestions.setTitle("Core Java");
+        coreJavaQuestions.setDescription("Core Java basics");
+        coreJavaQuestions.addQuestion(jvm);
+        coreJavaQuestions.addQuestion(jre);
+        coreJavaQuestions.addQuestion(jdk);
+        qCollectionService.save(coreJavaQuestions);
+        log.info("QCollection loaded.");
     }
 
     private Question saveQuestion(Category category, String wording, String shortAnswer, KeyTerm... keyTerms) {

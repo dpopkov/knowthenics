@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout (~{::body},'qcollections')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection of Questions Form</title>
+</head>
+<body>
+
+<h2>Collection of Questions Term</h2>
+<form th:object="${qCollection}" class="form-horizontal" id="add-keyterm-form" method="post">
+    <div class="form-group has-feedback">
+        <input th:replace="~{fragments/inputField :: input ('Title', 'title', 'text')}"/>
+        <input th:replace="~{fragments/inputField :: input ('Description', 'description', 'text')}"/>
+    </div>
+    <div class="form-group has-feedback">
+        <table  class="table table-striped">
+            <thead>
+            <tr>
+                <th>Selected</th>
+                <th>Question (en)</th>
+                <th>Question (ru)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="question : ${allQuestions}">
+                <td>
+                    <input type="checkbox" class="form-check-input" name="selectedQuestionsIds"
+                           th:value="${question.id}"
+                           th:checked="${qCollection.contains(question)}"
+                           th:field="*{questions}"
+                    >
+                </td>
+                <td th:text="${question.wordingEn}">En</td>
+                <td th:text="${question.wordingRu}">Ru</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button th:with="text=${qCollection['new']} ? 'Add Collection' : 'Update Collection'"
+                    class="btn btn-default" type="submit" th:text="${text}">
+                Add Collection of Questions
+            </button>
+        </div>
+    </div>
+</form>
+
+</body>
+</html>

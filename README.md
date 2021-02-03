@@ -3,3 +3,10 @@
 # KnowThenics
 
 [History](History.md)
+
+### How to Start
+
+Use Profiles:
+* default 
+* dev
+* prod
