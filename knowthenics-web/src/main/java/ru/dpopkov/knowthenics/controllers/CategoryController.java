@@ -36,6 +36,13 @@ public class CategoryController {
         return "categories/list";
     }
 
+    @GetMapping("/{categoryId}")
+    public String show(@PathVariable String categoryId, Model model) {
+        Long id = Long.valueOf(categoryId);
+        model.addAttribute(categoryService.findById(id));
+        return "categories/category-details";
+    }
+
     @GetMapping("/new")
     public String initCreateForm(Model model) {
         model.addAttribute(new Category());

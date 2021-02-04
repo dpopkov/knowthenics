@@ -11,7 +11,9 @@
 <table class="table table-striped" th:object="${question}">
     <tr>
         <th>Category</th>
-        <td th:text="*{category?.name}"></td>
+        <td><a href="#"
+               th:href="@{'/categories/' + ${question.category?.id}}"
+               th:text="*{category?.name}"></a></td>
     </tr>
     <tr>
         <th>Question (en)</th>

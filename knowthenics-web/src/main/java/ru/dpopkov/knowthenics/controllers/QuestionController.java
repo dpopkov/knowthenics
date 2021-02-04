@@ -110,6 +110,14 @@ public class QuestionController {
         return "questions/list";
     }
 
+    @GetMapping("/findByCategory/{categoryId}")
+    public String findByCategory(@PathVariable Long categoryId, Model model) {
+        Category category = categoryService.findById(categoryId);
+        Set<Question> found = questionService.findByCategory(category);
+        model.addAttribute("questions", found);
+        return "questions/list";
+    }
+
     @GetMapping("/new")
     public String initCreateForm(Model model) {
         model.addAttribute(new Question());

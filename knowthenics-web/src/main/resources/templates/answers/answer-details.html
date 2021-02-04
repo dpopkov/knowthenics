@@ -11,19 +11,19 @@
 <table class="table table-striped" th:object="${answer}">
     <tr>
         <th>Question (en)</th>
-        <td th:text="*{question?.wordingEn}"></td>
+        <td><a href="#" th:href="@{'/questions/' + ${answer.question?.id}}" th:text="*{question?.wordingEn}"></a></td>
     </tr>
     <tr>
         <th>Question (ru)</th>
-        <td th:text="*{question?.wordingRu}"></td>
+        <td><a href="#" th:href="@{'/questions/' + ${answer.question?.id}}" th:text="*{question?.wordingRu}"></a></td>
     </tr>
     <tr>
         <th>Wording (en)</th>
-        <td th:text="*{wordingEn}"></td>
+        <td><pre th:text="*{wordingEn}"></pre></td>
     </tr>
     <tr>
         <th>Wording (ru)</th>
-        <td th:text="*{wordingRu}"></td>
+        <td><pre th:text="*{wordingRu}"></pre></td>
     </tr>
     <tr>
         <th>Answer Type</th>

@@ -6,6 +6,9 @@
 
 ### How to Start
 
+Revise It
+---------
+
 Use Profiles:
 * default 
 * dev

@@ -3,6 +3,7 @@ package ru.dpopkov.knowthenics.services.springdatajpa;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
+import ru.dpopkov.knowthenics.model.Category;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.repositories.QuestionRepository;
@@ -43,5 +44,11 @@ public class QuestionSDJpaService extends AbstractSDJpaService<Question> impleme
             }
         });
         return result;
+    }
+
+    @Override
+    public Set<Question> findByCategory(Category category) {
+        QuestionRepository questionRepository = (QuestionRepository) super.crudRepository;
+        return questionRepository.findByCategory(category);
     }
 }

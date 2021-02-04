@@ -31,6 +31,18 @@ class CategoryControllerTest {
     }
 
     @Test
+    void testShow() throws Exception {
+        final Long categoryId = 10L;
+        when(categoryService.findById(categoryId)).thenReturn(Category.builder().build());
+
+        mockMvc.perform(get("/categories/" + categoryId))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("category"))
+                .andExpect(view().name("categories/category-details"));
+        verify(categoryService).findById(categoryId);
+    }
+
+    @Test
     void testInitCreateForm() throws Exception {
         mockMvc.perform(get("/categories/new"))
                 .andExpect(status().isOk())

@@ -19,7 +19,7 @@
     </thead>
     <tbody>
     <tr th:each="category : ${categories}">
-        <td th:text="${category.id}"></td>
+        <td><a href="#" th:href="@{'/categories/' + ${category.id}}" th:text="'#' + ${category.id}"></a></td>
         <td th:text="${category.name}"></td>
         <td th:text="${category.description}"></td>
         <td><a href="#"

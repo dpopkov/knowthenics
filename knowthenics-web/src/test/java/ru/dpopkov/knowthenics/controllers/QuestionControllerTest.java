@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import ru.dpopkov.knowthenics.exceptions.data.NotFoundInRepositoryException;
+import ru.dpopkov.knowthenics.model.Category;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.model.Question;
 import ru.dpopkov.knowthenics.services.AnswerService;
@@ -149,6 +150,19 @@ class QuestionControllerTest {
                 .andExpect(view().name("questions/list"));
         verify(keyTermService).findById(keyTermId);
         verify(questionService).findByKeyTerm(keyTerm);
+    }
+
+    @Test
+    void testFindByCategory() throws Exception {
+        final Long categoryId = 20L;
+        Category category = Category.builder().id(categoryId).build();
+        when(categoryService.findById(categoryId)).thenReturn(category);
+        mockMvc.perform(get("/questions/findByCategory/" + categoryId))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("questions"))
+                .andExpect(view().name("questions/list"));
+        verify(categoryService).findById(categoryId);
+        verify(questionService).findByCategory(category);
     }
 
     @Test

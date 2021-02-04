@@ -2,6 +2,7 @@
 
 #### 2021-02-04
 * Add ability to add and edit Collections of Questions. Closes #57.
+* Add Category details, wrap output of big fields in 'pre' element. Add missing links. Closes #58.
 
 #### 2021-01-31
 * Implement Combined Search of Questions and Answers. Closes #56.
