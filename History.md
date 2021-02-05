@@ -2,6 +2,7 @@
 
 #### 2021-02-05
 * Add FlashCard and Deck Entities. Closes #59.
+* Add Controllers and View for Deck and FlashCards. Closes #60.
 
 #### 2021-02-04
 * Add ability to add and edit Collections of Questions. Closes #57.

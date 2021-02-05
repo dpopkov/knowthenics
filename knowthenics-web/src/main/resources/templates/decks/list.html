@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'decks')}">
+<head>
+    <meta charset="UTF-8">
+    <title>List of Decks</title>
+</head>
+<body>
+
+<h2 th:text="'List of Decks'">List of Decks ...</h2>
+
+<table id="decks" class="table table-striped">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Size</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="deck : ${decks}">
+        <td>
+            <a href="#" th:text="'#' + ${deck.id}" th:href="@{/decks/{id}(id=${deck.id})}">Id</a>
+        </td>
+        <td th:text="${deck.name}"></td>
+        <td th:text="${deck.description}"></td>
+        <td th:text="${deck.size()}"></td>
+        <td><a href="#" th:href="@{/decks/{id}/populate(id=${deck.id})}">Populate</a></td>
+        <td><a href="#" th:href="@{/decks/{id}/study(id=${deck.id})}">Study</a></td>
+        <td><a href="#" th:href="@{/decks/{id}/edit(id=${deck.id})}">Edit</a></td>
+        <td><a href="#" th:href="@{/decks/{id}/delete(id=${deck.id})}">Delete</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/decks/new}" class="btn btn-default">Add Deck</a>
+
+</body>
+</html>

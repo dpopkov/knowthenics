@@ -8,4 +8,9 @@ import ru.dpopkov.knowthenics.services.DeckService;
 @Service
 @Profile({"default", "map-service"})
 public class DeckMapService extends AbstractMapService<Deck> implements DeckService {
+    @Override
+    public void populateFrom(Deck deck, Long collectionId) {
+        // todo: implement
+        throw new RuntimeException("Not implemented yet");
+    }
 }

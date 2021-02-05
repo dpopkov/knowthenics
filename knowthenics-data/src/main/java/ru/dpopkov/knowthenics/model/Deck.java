@@ -53,4 +53,8 @@ public class Deck extends BaseEntity {
         flashCards.remove(card);
         card.setDeck(null);
     }
+
+    public int size() {
+        return flashCards.size();
+    }
 }
