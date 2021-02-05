@@ -19,16 +19,20 @@ public class DataLoader implements CommandLineRunner {
     private final SourceService sourceService;
     private final KeyTermService keyTermService;
     private final QCollectionService qCollectionService;
+    private final FlashCardService flashCardService;
+    private final DeckService deckService;
 
     public DataLoader(AnswerService answerService, CategoryService categoryService,
                       QuestionService questionService, SourceService sourceService,
-                      KeyTermService keyTermService, QCollectionService qCollectionService) {
+                      KeyTermService keyTermService, QCollectionService qCollectionService, FlashCardService flashCardService, DeckService deckService) {
         this.answerService = answerService;
         this.categoryService = categoryService;
         this.questionService = questionService;
         this.sourceService = sourceService;
         this.keyTermService = keyTermService;
         this.qCollectionService = qCollectionService;
+        this.flashCardService = flashCardService;
+        this.deckService = deckService;
     }
 
     /**
@@ -99,6 +103,20 @@ public class DataLoader implements CommandLineRunner {
         coreJavaQuestions.addQuestion(jdk);
         qCollectionService.save(coreJavaQuestions);
         log.info("QCollection loaded.");
+
+        FlashCard fc1 = new FlashCard(jvm);
+        FlashCard fc2 = new FlashCard(jre);
+        FlashCard fc3 = new FlashCard(jdk);
+        Deck deck = new Deck("Core Java questions deck");
+        deckService.save(deck);
+        flashCardService.save(fc1);
+        flashCardService.save(fc2);
+        flashCardService.save(fc3);
+        deck.addCard(fc1);
+        deck.addCard(fc2);
+        deck.addCard(fc3);
+        deckService.save(deck);
+        log.info("####### Cards and Decks loaded");
     }
 
     private Question saveQuestion(Category category, String wording, String shortAnswer, KeyTerm... keyTerms) {

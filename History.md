@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-05
+* Add FlashCard and Deck Entities. Closes #59.
+
 #### 2021-02-04
 * Add ability to add and edit Collections of Questions. Closes #57.
 * Add Category details, wrap output of big fields in 'pre' element. Add missing links. Closes #58.
