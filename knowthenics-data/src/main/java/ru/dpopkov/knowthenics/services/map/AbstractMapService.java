@@ -47,4 +47,9 @@ public abstract class AbstractMapService<T extends BaseEntity> implements CrudSe
     public void deleteById(Long id) {
         map.remove(id);
     }
+
+    @Override
+    public long count() {
+        return map.size();
+    }
 }

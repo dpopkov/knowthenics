@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'decks')}">
+<head>
+    <meta charset="UTF-8">
+    <title>Flashcard</title>
+</head>
+<body>
+
+<div th:if="${studySession.isFinished()}">
+    <h2>This Study Session is finished</h2>
+</div>
+<div th:if="${not studySession.isFinished()}"
+        th:with="flashcard=${studySession.getCurrentCard()}">
+
+    <h2>Flashcard</h2>
+
+    <table class="table table-striped" th:object="${flashcard}">
+        <tr>
+            <th>Question</th>
+            <td th:text="*{questionWording}"></td>
+        </tr>
+        <tr th:if="${showAnswer}">
+            <th>Answer</th>
+            <td th:text="*{answerWording}"></td>
+        </tr>
+        <tr>
+            <th>Level</th>
+            <td th:text="*{level}"></td>
+        </tr>
+    </table>
+
+    <a th:if="${!showAnswer}" th:href="@{/study/{id}/show(id=${studySession.id})}" class="btn btn-default">Show Answer</a>
+    <a th:href="@{/study/{id}/know(id=${studySession.id})}" class="btn btn-default">Know it Well</a>
+    <a th:href="@{/study/{id}/again(id=${studySession.id})}" class="btn btn-default">Study Again</a>
+</div>
+
+</body>
+</html>

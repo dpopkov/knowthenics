@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-13
+* Add ability to drill cards in Deck. Closes #63.
+
 #### 2021-02-05
 * Add FlashCard and Deck Entities. Closes #59.
 * Add Controllers and View for Deck and FlashCards. Closes #60.

@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "deck")
+@Table(name = "decks")
 public class Deck extends BaseEntity {
     @NotBlank
     @Size(min = 3, max = 255)
@@ -47,11 +47,6 @@ public class Deck extends BaseEntity {
     public void addCard(FlashCard card) {
         flashCards.add(card);
         card.setDeck(this);
-    }
-
-    public void removeCard(FlashCard card) {
-        flashCards.remove(card);
-        card.setDeck(null);
     }
 
     public int size() {

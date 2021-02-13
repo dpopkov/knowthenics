@@ -50,4 +50,9 @@ public abstract class AbstractSDJpaService<T extends BaseEntity> implements Crud
     public void deleteById(Long id) {
         crudRepository.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return crudRepository.count();
+    }
 }

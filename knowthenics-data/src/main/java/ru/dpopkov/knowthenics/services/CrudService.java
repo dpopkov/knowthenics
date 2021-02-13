@@ -22,4 +22,6 @@ public interface CrudService<T extends BaseEntity, ID> {
     void delete(T entity);
 
     void deleteById(ID id);
+
+    long count();
 }

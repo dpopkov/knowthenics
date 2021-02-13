@@ -58,6 +58,11 @@
             <span>Home</span>
           </li>
 
+          <li th:replace="::menuItem ('/decks/list','decks','decks','th-list','Decks')">
+            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+            <span>Decks</span>
+          </li>
+
           <li th:replace="::menuItem ('/qcollections/list','qcollections','qcollections','th-list','Collections')">
             <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
             <span>Collections</span>

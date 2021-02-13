@@ -31,12 +31,14 @@
     <tr>
         <th>Question</th>
         <th>Answer</th>
+        <th>Level</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="card : ${deck.flashCards}">
         <td th:text="${card.questionWording}"></td>
         <td th:text="${card.answerWording}"></td>
+        <td th:text="${card.level}"></td>
     </tr>
     </tbody>
 </table>
