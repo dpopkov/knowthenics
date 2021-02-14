@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-15
+* Configure MySQL: setup databases and accounts for dev and prod. Closes #55.
+
 #### 2021-02-13
 * Add ability to drill cards in Deck. Closes #63.
 
