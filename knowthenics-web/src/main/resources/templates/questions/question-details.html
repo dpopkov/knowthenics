@@ -84,7 +84,7 @@
             <td>
                 <input type="radio" class="form-check-input" name="preferredAnswerId"
                        th:value="${answer.id}"
-                       th:checked="${answer.id == question.preferredAnswer.id}">
+                       th:checked="${answer.id == question.preferredAnswer?.id}">
             </td>
             <td th:text="${answer.wordingEn}"></td>
             <td th:text="${answer.wordingRu}"></td>
