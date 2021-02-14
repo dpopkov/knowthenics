@@ -11,7 +11,7 @@ import ru.dpopkov.knowthenics.services.DeckService;
 import ru.dpopkov.knowthenics.services.QCollectionService;
 
 @Service
-@Profile("spring-data-jpa")
+@Profile({"spring-data-jpa", "dev"})
 public class DeckSDJpaService extends AbstractSDJpaService<Deck> implements DeckService {
 
     private final QCollectionService qCollectionService;

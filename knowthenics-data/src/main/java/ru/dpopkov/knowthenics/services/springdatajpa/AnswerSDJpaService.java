@@ -12,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Profile("spring-data-jpa")
+@Profile({"spring-data-jpa", "dev"})
 public class AnswerSDJpaService extends AbstractSDJpaService<Answer> implements AnswerService {
 
     public AnswerSDJpaService(AnswerRepository answerRepository) {

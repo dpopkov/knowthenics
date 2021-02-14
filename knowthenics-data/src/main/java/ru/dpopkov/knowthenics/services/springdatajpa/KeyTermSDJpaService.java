@@ -7,7 +7,7 @@ import ru.dpopkov.knowthenics.repositories.KeyTermRepository;
 import ru.dpopkov.knowthenics.services.KeyTermService;
 
 @Service
-@Profile("spring-data-jpa")
+@Profile({"spring-data-jpa", "dev"})
 public class KeyTermSDJpaService extends AbstractSDJpaService<KeyTerm> implements KeyTermService {
 
     public KeyTermSDJpaService(KeyTermRepository keyTermRepository) {

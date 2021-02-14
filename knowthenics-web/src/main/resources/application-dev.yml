@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/knowthenics_dev
+    username: knowthenics_dev_user
+    password: dev
+    platform: mysql
+  #    initialization-mode: always  # Uncomment this line and create data-mysql.sql to initialize data
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+    # Uncomment the lines below to generate SQL that creates the database schema
+#    properties:
+#      hibernate:
+#        hbm2ddl:
+#          delimiter: ";"
+#      javax:
+#        persistence:
+#          schema-generation:
+#            create-source: metadata
+#            scripts:
+#              action: create
+#              create-target: knowthenics_db_schema.sql

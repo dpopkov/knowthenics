@@ -40,6 +40,12 @@ public class DataLoader implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
+        if (questionService.count() == 0) {
+            loadData();
+        }
+    }
+
+    private void loadData() {
         log.info("Loading bootstrap data ...");
 
         Category catCore = saveCategory("Java Core", "Java syntax and main library classes");
@@ -66,7 +72,7 @@ public class DataLoader implements CommandLineRunner {
 
         Source wiki = saveSource("Wikipedia", "Wikipedia - the Free Encyclopedia", "https://www.wikipedia.org/");
         Source javarevisitedBlog = saveSource("Javarevisited", "Javarevisited - Blog about Java, "
-                + "Programming, Spring, Hibernate, Interview Questions, Books and Online Course Recommendations",
+                        + "Programming, Spring, Hibernate, Interview Questions, Books and Online Course Recommendations",
                 "https://javarevisited.blogspot.com");
         Source baeldung = saveSource("Baeldung",
                 "Baeldung helps developers explore the Java ecosystem and simply be better engineers.",
@@ -87,8 +93,8 @@ public class DataLoader implements CommandLineRunner {
         questionService.save(jdk);
 
         Answer ansJdbc = saveAnswer(jdbc, "JDBC is Java database connectivity as name implies it’s a java API "
-                + "for communicating to relational database, API has java classes and interfaces using that developer can "
-                + "easily interact with database.", javarevisitedBlog,
+                        + "for communicating to relational database, API has java classes and interfaces using that developer can "
+                        + "easily interact with database.", javarevisitedBlog,
                 "https://javarevisited.blogspot.com/2012/12/top-10-jdbc-interview-questions-answers.html",
                 jdbcTerm);
         jdbc.setPreferredAnswer(ansJdbc);
