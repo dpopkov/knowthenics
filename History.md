@@ -4,6 +4,7 @@
 * Configure MySQL: setup databases and accounts for dev and prod. Closes #55.
 * Add Spring Boot configuration for MySQL. Closes #52.
 * Fix error when choosing Question without preferred Answer. Closes #65.
+* Fix failing KnowthenicsApplicationTests on CircleCI. Closes #66. 
 
 #### 2021-02-13
 * Add ability to drill cards in Deck. Closes #63.
