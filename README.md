@@ -18,3 +18,7 @@ Use Profiles:
 * default 
 * dev
 * prod
+
+Database Schema
+---------------
+place png here
