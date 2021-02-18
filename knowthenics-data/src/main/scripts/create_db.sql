@@ -6,8 +6,8 @@
 # Connect to mysql and run as root
 
 # 1. Create databases
-CREATE DATABASE IF NOT EXISTS knowthenics_dev;
-CREATE DATABASE IF NOT EXISTS knowthenics_prod;
+CREATE DATABASE IF NOT EXISTS knowthenics_dev DEFAULT CHARACTER SET 'utf8';
+CREATE DATABASE IF NOT EXISTS knowthenics_prod DEFAULT CHARACTER SET 'utf8';
 
 # 2. Create db accounts
 CREATE USER 'knowthenics_dev_user'@'localhost' IDENTIFIED BY 'dev';

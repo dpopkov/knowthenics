@@ -2,6 +2,7 @@
 
 #### 2021-02-18
 * Add 'prod' profile to services.
+* Fix the problem of writing Russian characters to MySQL. Closes #67.
 
 #### 2021-02-15
 * Configure MySQL: setup databases and accounts for dev and prod. Closes #55.
