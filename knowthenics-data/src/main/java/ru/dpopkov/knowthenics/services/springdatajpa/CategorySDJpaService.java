@@ -7,7 +7,7 @@ import ru.dpopkov.knowthenics.repositories.CategoryRepository;
 import ru.dpopkov.knowthenics.services.CategoryService;
 
 @Service
-@Profile({"spring-data-jpa", "dev"})
+@Profile({"spring-data-jpa", "dev", "prod"})
 public class CategorySDJpaService extends AbstractSDJpaService<Category> implements CategoryService {
 
     public CategorySDJpaService(CategoryRepository categoryRepository) {

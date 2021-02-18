@@ -7,7 +7,7 @@ import ru.dpopkov.knowthenics.repositories.QCollectionRepository;
 import ru.dpopkov.knowthenics.services.QCollectionService;
 
 @Service
-@Profile({"spring-data-jpa", "dev"})
+@Profile({"spring-data-jpa", "dev", "prod"})
 public class QCollectionSDJpaService extends AbstractSDJpaService<QCollection> implements QCollectionService {
 
     public QCollectionSDJpaService(QCollectionRepository qCollectionRepository) {

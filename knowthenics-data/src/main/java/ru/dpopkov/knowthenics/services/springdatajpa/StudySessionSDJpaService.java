@@ -7,7 +7,7 @@ import ru.dpopkov.knowthenics.repositories.StudySessionRepository;
 import ru.dpopkov.knowthenics.services.StudySessionService;
 
 @Service
-@Profile({"spring-data-jpa", "dev"})
+@Profile({"spring-data-jpa", "dev", "prod"})
 public class StudySessionSDJpaService extends AbstractSDJpaService<StudySession> implements StudySessionService {
 
     public StudySessionSDJpaService(StudySessionRepository studySessionRepository) {

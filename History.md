@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-18
+* Add 'prod' profile to services.
+
 #### 2021-02-15
 * Configure MySQL: setup databases and accounts for dev and prod. Closes #55.
 * Add Spring Boot configuration for MySQL. Closes #52.
