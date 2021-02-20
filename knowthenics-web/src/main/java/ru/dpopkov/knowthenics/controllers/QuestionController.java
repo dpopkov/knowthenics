@@ -18,6 +18,7 @@ import ru.dpopkov.knowthenics.services.QuestionService;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings("SameReturnValue")
@@ -156,6 +157,30 @@ public class QuestionController {
         Question updated = questionService.save(found);
         log.debug("Updated question ID {}", updated.getId());
         return "redirect:/questions/" + updated.getId();
+    }
+
+    @GetMapping("/{questionId}/keyterms/add")
+    public String initAddKeyTermForm(@PathVariable String questionId, Model model) {
+        Long questionIdLong = Long.valueOf(questionId);
+        Question question = questionService.findById(questionIdLong);
+        model.addAttribute("question", question);
+        final Set<KeyTerm> keyTerms = keyTermService.findAll();
+        model.addAttribute("allKeyTerms", keyTerms);
+        return "questions/add-keyterm-form";
+    }
+
+    @PostMapping("/{questionId}/keyterms/add")
+    public String processAddKeyTermForm(@PathVariable String questionId, @RequestParam List<Long> selectedKeyTermIds) {
+        Long questionIdLong = Long.valueOf(questionId);
+        Question question = questionService.findById(questionIdLong);
+        for (Long keyTermId : selectedKeyTermIds) {
+            final KeyTerm byId = keyTermService.findById(keyTermId);
+            if (!question.getKeyTerms().contains(byId)) {
+                question.addKeyTerm(byId);
+            }
+        }
+        questionService.save(question);
+        return "redirect:/questions/" + question.getId();
     }
 
     private void logErrors(BindingResult result) {

@@ -6,14 +6,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import ru.dpopkov.knowthenics.model.Answer;
-import ru.dpopkov.knowthenics.model.AnswerType;
-import ru.dpopkov.knowthenics.model.Source;
+import ru.dpopkov.knowthenics.model.*;
 import ru.dpopkov.knowthenics.services.AnswerService;
+import ru.dpopkov.knowthenics.services.KeyTermService;
 import ru.dpopkov.knowthenics.services.QuestionService;
 import ru.dpopkov.knowthenics.services.SourceService;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @SuppressWarnings({"SameReturnValue"})
@@ -27,11 +27,13 @@ public class AnswerController {
     private final AnswerService answerService;
     private final QuestionService questionService;
     private final SourceService sourceService;
+    private final KeyTermService keyTermService;
 
-    public AnswerController(AnswerService answerService, QuestionService questionService, SourceService sourceService) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, SourceService sourceService, KeyTermService keyTermService) {
         this.answerService = answerService;
         this.questionService = questionService;
         this.sourceService = sourceService;
+        this.keyTermService = keyTermService;
     }
 
     @InitBinder
@@ -94,6 +96,31 @@ public class AnswerController {
         found.updateSimpleFieldsFrom(answer);
         Answer saved = answerService.save(found);
         return "redirect:/questions/" + questionId + "/answers/" + saved.getId() + "/view";
+    }
+
+    @GetMapping("/{answerId}/keyterms/add")
+    public String initAddKeyTermForm(@PathVariable String answerId, Model model) {
+        Long answerIdLong = Long.valueOf(answerId);
+        Answer answer = answerService.findById(answerIdLong);
+        model.addAttribute("answer", answer);
+        final Set<KeyTerm> keyTerms = keyTermService.findAll();
+        model.addAttribute("allKeyTerms", keyTerms);
+        return "answers/add-keyterm-form";
+    }
+
+    @PostMapping("/{answerId}/keyterms/add")
+    public String processAddKeyTermForm(@PathVariable String answerId, @PathVariable String questionId,
+                                        @RequestParam List<Long> selectedKeyTermIds) {
+        Long answerIdLong = Long.valueOf(answerId);
+        Answer answer = answerService.findById(answerIdLong);
+        for (Long keyTermId : selectedKeyTermIds) {
+            final KeyTerm byId = keyTermService.findById(keyTermId);
+            if (!answer.getKeyTerms().contains(byId)) {
+                answer.addKeyTerm(byId);
+            }
+        }
+        answerService.save(answer);
+        return "redirect:/questions/" + questionId + "/answers/" + answer.getId() + "/view";
     }
 
     private void logErrors(BindingResult result) {

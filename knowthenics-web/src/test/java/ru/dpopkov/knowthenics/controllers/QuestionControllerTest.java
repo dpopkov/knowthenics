@@ -242,4 +242,37 @@ class QuestionControllerTest {
                 .andExpect(view().name("questions/create-or-update-form"));
         verifyNoInteractions(questionService);
     }
+
+    @Test
+    void testInitAddKeyTermForm() throws Exception {
+        final Long questionId = 10L;
+        when(questionService.findById(questionId)).thenReturn(Question.builder().id(questionId).build());
+        when(keyTermService.findAll()).thenReturn(Set.of());
+
+        mockMvc.perform(get("/questions/10/keyterms/add"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("question"))
+                .andExpect(model().attributeExists("allKeyTerms"))
+                .andExpect(view().name("questions/add-keyterm-form"));
+    }
+
+    @Test
+    void testProcessAddKeyTermForm() throws Exception {
+        final Long questionId = 10L;
+        final Long keyTermId11 = 11L;
+        final Long keyTermId22 = 22L;
+        when(questionService.findById(questionId)).thenReturn(Question.builder().id(questionId).build());
+        when(keyTermService.findById(keyTermId11)).thenReturn(KeyTerm.builder().id(keyTermId11).build());
+        when(keyTermService.findById(keyTermId22)).thenReturn(KeyTerm.builder().id(keyTermId22).build());
+
+        mockMvc.perform(post("/questions/" + questionId + "/keyterms/add")
+                .param("selectedKeyTermIds", keyTermId11.toString(), keyTermId22.toString())
+        )
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/questions/" + questionId));
+        verify(questionService).findById(questionId);
+        verify(keyTermService).findById(keyTermId11);
+        verify(keyTermService).findById(keyTermId22);
+        verify(questionService).save(ArgumentMatchers.any(Question.class));
+    }
 }

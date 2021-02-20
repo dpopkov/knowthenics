@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-20
+* Add ability for Question and Answer to add KeyTerms. Closes #54.
+
 #### 2021-02-18
 * Add 'prod' profile to services.
 * Fix the problem of writing Russian characters to MySQL. Closes #67.
