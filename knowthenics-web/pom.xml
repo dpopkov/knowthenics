@@ -3,7 +3,7 @@
     <parent>
         <artifactId>knowthenics</artifactId>
         <groupId>ru.dpopkov</groupId>
-        <version>0.0.3-SNAPSHOT</version>
+        <version>0.0.3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -21,7 +21,7 @@
         <dependency>
             <groupId>ru.dpopkov</groupId>
             <artifactId>knowthenics-data</artifactId>
-            <version>0.0.3-SNAPSHOT</version>
+            <version>0.0.3</version>
         </dependency>
 
         <dependency>
