@@ -2,6 +2,7 @@
 
 #### 2021-02-20
 * Add ability for Question and Answer to add KeyTerms. Closes #54.
+* Use white-space pre-wrap style for big fields.
 
 #### 2021-02-18
 * Add 'prod' profile to services.

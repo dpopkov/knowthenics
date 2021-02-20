@@ -77,4 +77,10 @@ public class Answer extends BaseEntity {
         setSourceDetails(update.getSourceDetails());
         setComment(update.getComment());
     }
+
+    public String bestWording() {
+        return !(wordingEn == null || wordingEn.isEmpty() || wordingEn.equals("-"))
+                ? wordingEn
+                : wordingRu;
+    }
 }

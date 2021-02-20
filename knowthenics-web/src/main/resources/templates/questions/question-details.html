@@ -33,7 +33,9 @@
     </tr>
     <tr>
         <th>Preferred Answer</th>
-        <td th:text="*{preferredAnswer?.wordingEn}"></td>
+        <td>
+            <div style="white-space: pre-wrap" th:text="*{preferredAnswer?.bestWording()}"></div>
+        </td>
     </tr>
     <tr>
         <th>Comment</th>
@@ -86,8 +88,12 @@
                        th:value="${answer.id}"
                        th:checked="${answer.id == question.preferredAnswer?.id}">
             </td>
-            <td th:text="${answer.wordingEn}"></td>
-            <td th:text="${answer.wordingRu}"></td>
+            <td>
+                <div style="white-space: pre-wrap" th:text="${answer.wordingEn}"></div>
+            </td>
+            <td>
+                <div style="white-space: pre-wrap" th:text="${answer.wordingRu}"></div>
+            </td>
             <td th:text="${answer.answerType}"></td>
             <td th:text="${answer.source?.shortTitle}"></td>
             <td th:text="${answer.sourceDetails}"></td>
