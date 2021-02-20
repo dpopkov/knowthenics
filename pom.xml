@@ -9,7 +9,7 @@
     </parent>
     <groupId>ru.dpopkov</groupId>
     <artifactId>knowthenics</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.4-SNAPSHOT</version>
 
     <name>knowthenics</name>
     <description>Knowthenics project</description>
@@ -62,7 +62,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:dpopkov/knowthenics.git</developerConnection>
-        <tag>knowthenics-0.0.3</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>
