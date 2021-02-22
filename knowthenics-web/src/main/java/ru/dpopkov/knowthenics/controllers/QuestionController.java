@@ -90,7 +90,7 @@ public class QuestionController {
             question.setWordingEn("");
         }
         String searchPattern = "%" + question.getWordingEn() + "%";
-        Set<Question> questions = questionService.findAllByWordingEnLike(searchPattern);
+        Set<Question> questions = questionService.findAllByWordingLike(searchPattern);
         if (questions.isEmpty()) {
             result.rejectValue("wordingEn", "notFound", "not found");
             return QUESTIONS_FIND_QUESTIONS;

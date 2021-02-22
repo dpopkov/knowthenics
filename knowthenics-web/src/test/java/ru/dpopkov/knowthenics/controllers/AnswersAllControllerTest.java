@@ -98,7 +98,7 @@ class AnswersAllControllerTest {
                 Answer.builder().id(1L).build(),
                 Answer.builder().id(2L).build()
         );
-        when(answerService.findAllByWordingEnLike(searchPattern)).thenReturn(answers);
+        when(answerService.findAllByWordingLike(searchPattern)).thenReturn(answers);
         mockMvc.perform(post("/answers/find")
                 .param("wordingEn", search)
         )
@@ -106,7 +106,7 @@ class AnswersAllControllerTest {
                 .andExpect(model().attributeExists("answers"))
                 .andExpect(model().attribute("answers", hasSize(2)))
                 .andExpect(view().name("answers/list"));
-        verify(answerService).findAllByWordingEnLike(searchPattern);
+        verify(answerService).findAllByWordingLike(searchPattern);
     }
 
     @Test

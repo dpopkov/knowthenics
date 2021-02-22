@@ -10,5 +10,7 @@ public interface QuestionRepository extends CrudRepository<Question, Long> {
 
     Set<Question> findAllByWordingEnLike(String searchString);
 
+    Set<Question> findAllByWordingRuLike(String searchString);
+
     Set<Question> findByCategory(Category category);
 }

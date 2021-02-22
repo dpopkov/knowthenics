@@ -28,7 +28,7 @@ class AnswerSDJpaServiceTest {
                 Answer.builder().id(1L).build(),
                 Answer.builder().id(2L).build());
         when(answerRepository.findAllByWordingEnLike(anyString())).thenReturn(set);
-        Set<Answer> found = service.findAllByWordingEnLike("test");
+        Set<Answer> found = service.findAllByWordingLike("test");
         assertNotNull(found);
         assertEquals(2, found.size());
     }

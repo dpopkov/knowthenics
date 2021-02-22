@@ -30,9 +30,12 @@ public class QuestionSDJpaService extends AbstractSDJpaService<Question> impleme
     }
 
     @Override
-    public Set<Question> findAllByWordingEnLike(String searchPattern) {
+    public Set<Question> findAllByWordingLike(String searchPattern) {
         QuestionRepository questionRepository = (QuestionRepository) super.crudRepository;
-        return questionRepository.findAllByWordingEnLike(searchPattern);
+        Set<Question> result = new HashSet<>();
+        result.addAll(questionRepository.findAllByWordingEnLike(searchPattern));
+        result.addAll(questionRepository.findAllByWordingRuLike(searchPattern));
+        return result;
     }
 
     @Override

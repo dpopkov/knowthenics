@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface AnswerService extends CrudService<Answer, Long> {
 
-    Set<Answer> findAllByWordingEnLike(String searchString);
+    Set<Answer> findAllByWordingLike(String searchString);
 
     Set<Answer> findByKeyTerm(KeyTerm keyTerm);
 }

@@ -14,9 +14,11 @@ import java.util.stream.Collectors;
 @Profile({"default", "map-service"})
 public class QuestionMapService extends AbstractMapService<Question> implements QuestionService {
     @Override
-    public Set<Question> findAllByWordingEnLike(String searchPattern) {
+    public Set<Question> findAllByWordingLike(String searchPattern) {
         return super.findAll().stream()
-                .filter(question -> question.getWordingEn() != null && question.getWordingEn().contains(searchPattern))
+                .filter(question ->
+                        question.getWordingEn() != null && question.getWordingEn().contains(searchPattern)
+                                || question.getWordingRu() != null && question.getWordingRu().contains(searchPattern))
                 .collect(Collectors.toSet());
     }
 

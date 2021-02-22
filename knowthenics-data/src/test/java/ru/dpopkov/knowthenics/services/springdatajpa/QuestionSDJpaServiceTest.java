@@ -79,7 +79,7 @@ class QuestionSDJpaServiceTest {
         String searchString = "%test1%";
         when(repository.findAllByWordingEnLike(searchString)).thenReturn(set);
 
-        Set<Question> found = service.findAllByWordingEnLike(searchString);
+        Set<Question> found = service.findAllByWordingLike(searchString);
         assertNotNull(found);
         assertEquals(2, found.size());
         verify(repository).findAllByWordingEnLike(searchString);

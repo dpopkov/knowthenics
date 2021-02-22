@@ -57,7 +57,7 @@ public class AnswersAllController {
             answer.setWordingEn("");
         }
         String searchPattern = "%" + answer.getWordingEn() + "%";
-        Set<Answer> found = answerService.findAllByWordingEnLike(searchPattern);
+        Set<Answer> found = answerService.findAllByWordingLike(searchPattern);
         if (found.isEmpty()) {
             result.rejectValue("wordingEn", "notFound", "not found");
             return ANSWERS_FIND_ANSWERS;

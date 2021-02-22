@@ -8,6 +8,7 @@ import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.repositories.AnswerRepository;
 import ru.dpopkov.knowthenics.services.AnswerService;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,9 +30,12 @@ public class AnswerSDJpaService extends AbstractSDJpaService<Answer> implements 
     }
 
     @Override
-    public Set<Answer> findAllByWordingEnLike(String searchString) {
+    public Set<Answer> findAllByWordingLike(String searchString) {
         AnswerRepository answerRepository = (AnswerRepository) super.crudRepository;
-        return answerRepository.findAllByWordingEnLike(searchString);
+        Set<Answer> result = new HashSet<>();
+        result.addAll(answerRepository.findAllByWordingEnLike(searchString));
+        result.addAll(answerRepository.findAllByWordingRuLike(searchString));
+        return Collections.unmodifiableSet(result);
     }
 
     @Override

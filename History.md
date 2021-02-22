@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-23
+* Implement search of Questions and Answers both by wordingEn and wordingRu fields.
+
 #### 2021-02-20
 * Add ability for Question and Answer to add KeyTerms. Closes #54.
 * Use white-space pre-wrap style for big fields.

@@ -14,9 +14,10 @@ import java.util.stream.Collectors;
 public class AnswerMapService extends AbstractMapService<Answer> implements AnswerService {
 
     @Override
-    public Set<Answer> findAllByWordingEnLike(String searchString) {
+    public Set<Answer> findAllByWordingLike(String searchString) {
         return super.findAll().stream()
-                .filter(a -> a.getWordingEn() != null && a.getWordingEn().contains(searchString))
+                .filter(a -> a.getWordingEn() != null && a.getWordingEn().contains(searchString)
+                        || a.getWordingRu() != null && a.getWordingRu().contains(searchString))
                 .collect(Collectors.toSet());
     }
 

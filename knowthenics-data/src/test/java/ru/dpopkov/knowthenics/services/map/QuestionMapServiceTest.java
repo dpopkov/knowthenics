@@ -64,6 +64,6 @@ class QuestionMapServiceTest {
     void testFindAllByWordingEnLike() {
         service.save(Question.builder().id(ID + 1).wordingEn("_test1_").build());
         service.save(Question.builder().id(ID + 2).wordingEn("_test2_").build());
-        assertEquals(2, service.findAllByWordingEnLike("test").size());
+        assertEquals(2, service.findAllByWordingLike("test").size());
     }
 }

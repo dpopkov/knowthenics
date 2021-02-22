@@ -8,4 +8,6 @@ import java.util.Set;
 public interface AnswerRepository extends CrudRepository<Answer, Long> {
 
     Set<Answer> findAllByWordingEnLike(String searchString);
+
+    Set<Answer> findAllByWordingRuLike(String searchString);
 }
