@@ -25,12 +25,17 @@
 <table class="table table-striped">
     <thead>
     <tr>
+        <th></th>
         <th>Questions (En)</th>
         <th>Questions (Ru)</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="question : ${qCollection.questions}">
+        <td>
+            <a href="#" th:text="'#' + ${question.id}"
+               th:href="@{/questions/{id}(id=${question.id})}">#</a>
+        </td>
         <td th:text="*{question.wordingEn}"></td>
         <td th:text="*{question.wordingRu}"></td>
     </tr>

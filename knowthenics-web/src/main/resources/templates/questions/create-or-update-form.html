@@ -21,8 +21,9 @@
         <div class="col-sm-offset-2 col-sm-10">
             <button th:with="text=${question['new']} ? 'Add Question' : 'Update Question'"
                     class="btn btn-default" type="submit" th:text="${text}">
-                Add Owner
+                Add Question
             </button>
+            <a th:href="@{/questions/new}" class="btn btn-default">Add New Question from Scratch</a>
         </div>
     </div>
 </form>

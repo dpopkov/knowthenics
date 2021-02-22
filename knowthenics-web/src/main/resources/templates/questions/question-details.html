@@ -49,6 +49,7 @@
 
 <a th:href="@{{id}/edit(id=${question.id})}" class="btn btn-default">Edit Question</a>
 <a th:href="@{{id}/keyterms/add(id=${question.id})}" class="btn btn-default">Add Key Term</a>
+<a th:href="@{/questions/new}" class="btn btn-default">Add New Question</a>
 <a th:href="@{{id}/answers/new(id=${question.id})}" class="btn btn-default">Add New Answer</a>
 
 <br/>
