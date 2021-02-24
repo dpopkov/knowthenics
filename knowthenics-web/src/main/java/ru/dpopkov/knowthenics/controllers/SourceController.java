@@ -77,6 +77,13 @@ public class SourceController {
         return REDIRECT_SOURCES;
     }
 
+    @GetMapping("/{sourceId}")
+    public String show(@PathVariable String sourceId, Model model) {
+        Source source = sourceService.findById(Long.parseLong(sourceId));
+        model.addAttribute(source);
+        return "sources/source-details";
+    }
+
     private void logErrors(BindingResult result) {
         result.getAllErrors().forEach(err -> log.error(err.toString()));
     }

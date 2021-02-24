@@ -1,5 +1,10 @@
 # History
 
+#### 2021-02-25
+* Add new type of Source - Person.
+* Remove columns of Answer on Question Details page.
+* Add Sources Details page.
+
 #### 2021-02-23
 * Implement search of Questions and Answers both by wordingEn and wordingRu fields.
 

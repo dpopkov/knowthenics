@@ -31,7 +31,9 @@
     </tr>
     <tr>
         <th>Source</th>
-        <td th:text="*{source.shortTitle}"></td>
+        <td>
+            <a href="#" th:text="*{source.shortTitle}" th:href="@{/sources/{id}(id=*{source.id})}"></a>
+        </td>
     </tr>
     <tr>
         <th>Source Details</th>

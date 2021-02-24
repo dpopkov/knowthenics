@@ -75,10 +75,7 @@
             <th>Prefer</th>
             <th>Answer</th>
             <th>Ответ</th>
-            <th>Type</th>
             <th>Source</th>
-            <th>Source Details</th>
-            <th>Comment</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -95,10 +92,11 @@
             <td>
                 <div style="white-space: pre-wrap" th:text="${answer.wordingRu}"></div>
             </td>
-            <td th:text="${answer.answerType}"></td>
-            <td th:text="${answer.source?.shortTitle}"></td>
-            <td th:text="${answer.sourceDetails}"></td>
-            <td th:text="${answer.comment}"></td>
+            <td>
+                <a href="#" th:text="${answer.source?.shortTitle}"
+                   th:href="@{/sources/{id}(id=${answer.source?.id})}"
+                ></a>
+            </td>
             <td>
                 <table class="table-condensed">
                     <tr>

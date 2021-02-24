@@ -5,5 +5,6 @@ public enum SourceType {
     BOOK,
     TUTORIAL,
     VIDEO_COURSE,
+    PERSON,
     WEB_SITE
 }
