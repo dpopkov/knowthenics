@@ -2,6 +2,8 @@
 
 # KnowThenics
 
+The application is under development.
+
 [History](History.md)
 
 ### How to Start
@@ -21,4 +23,4 @@ Use Profiles:
 
 Database Schema
 ---------------
-place png here
+![Schema](knowthenics-data/docs/knowthenics-model.png)
