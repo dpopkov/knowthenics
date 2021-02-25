@@ -21,6 +21,20 @@ Use Profiles:
 * dev
 * prod
 
+Screenshots
+-----------
+![Collections](docs/images/collections.png)  
+
+![Categories](docs/images/categories.png)  
+
+![Keyterms](docs/images/keyterms.png)  
+
+![Questions](docs/images/questions.png)  
+
+![Question Details](docs/images/question-details.png)  
+
+![Search](docs/images/find.png)  
+
 Database Schema
 ---------------
 ![Schema](knowthenics-data/docs/knowthenics-model.png)
