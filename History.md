@@ -1,5 +1,8 @@
 # History
 
+#### 2021-02-26
+* Do not show empty fields on view 'Question Details'. Closes #71.
+
 #### 2021-02-25
 * Add new type of Source - Person.
 * Remove columns of Answer on Question Details page.

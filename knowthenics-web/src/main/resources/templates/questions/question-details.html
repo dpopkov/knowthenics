@@ -23,21 +23,21 @@
         <th>Question (ru)</th>
         <td th:text="*{wordingRu}"></td>
     </tr>
-    <tr>
+    <tr th:if="${question.hasShortAnswerEn()}">
         <th>Short Answer (en)</th>
         <td th:text="*{shortAnswerEn}"></td>
     </tr>
-    <tr>
+    <tr th:if="${question.hasShortAnswerRu()}">
         <th>Short Answer (ru)</th>
         <td th:text="*{shortAnswerRu}"></td>
     </tr>
-    <tr>
+    <tr th:if="*{preferredAnswer != null}">
         <th>Preferred Answer</th>
         <td>
             <div style="white-space: pre-wrap" th:text="*{preferredAnswer?.bestWording()}"></div>
         </td>
     </tr>
-    <tr>
+    <tr th:if="${question.hasComment()}">
         <th>Comment</th>
         <td th:text="*{comment}"></td>
     </tr>
@@ -68,6 +68,7 @@
 <br/>
 <h2>Answers</h2>
 
+<div th:unless="${question.getAnswers().size() == 0}" >
 <form th:action="@{{id}/prefer(id=${question.id})}" method="post">
     <table class="table table-striped">
         <thead>
@@ -122,6 +123,10 @@
         </div>
     </div>
 </form>
+</div>
+<div th:if="${question.getAnswers().size() == 0}" >
+    <h4>No answers found</h4>
+</div>
 
 </body>
 </html>

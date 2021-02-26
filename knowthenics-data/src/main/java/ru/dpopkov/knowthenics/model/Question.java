@@ -93,6 +93,22 @@ public class Question extends BaseEntity {
         setComment(update.getComment());
     }
 
+    public boolean hasShortAnswerEn() {
+        return hasStringField(shortAnswerEn);
+    }
+
+    public boolean hasShortAnswerRu() {
+        return hasStringField(shortAnswerRu);
+    }
+
+    public boolean hasComment() {
+        return hasStringField(comment);
+    }
+
+    private boolean hasStringField(String field) {
+        return field != null && !field.isEmpty() && !field.equals("-");
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
