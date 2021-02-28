@@ -25,7 +25,9 @@
         <td th:text="${source.id}"></td>
         <td th:text="${source.shortTitle}"></td>
         <td th:text="${source.fullTitle}"></td>
-        <td th:text="${source.url}"></td>
+        <td>
+            <a href="#" th:href="${source.url}" th:text="${source.url}"></a>
+        </td>
         <td th:text="${source.sourceType}"></td>
         <td th:text="${source.description}"></td>
         <td><a href="#" th:href="@{/sources/{sourceId}/edit(sourceId=${source.id})}">Edit</a></td>

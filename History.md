@@ -3,6 +3,7 @@
 #### 2021-02-28
 * Add links to Home page.
 * Remove answers from list of Questions.
+* Display text values containing valid url as clickable links. Closes #73.
 
 #### 2021-02-26
 * Do not show empty fields on view 'Question Details'. Closes #71.

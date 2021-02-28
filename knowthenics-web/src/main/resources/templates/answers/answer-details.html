@@ -37,7 +37,12 @@
     </tr>
     <tr>
         <th>Source Details</th>
-        <td th:text="*{sourceDetails}"></td>
+        <td>
+            <span th:if="${sourceDetailsClickable}">
+                <a href="#" th:href="*{sourceDetails}" th:text="*{sourceDetails}"></a>
+            </span>
+            <span th:unless="${sourceDetailsClickable}" th:text="*{sourceDetails}"></span>
+        </td>
     </tr>
     <tr>
         <th>Comment</th>

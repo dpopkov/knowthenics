@@ -11,6 +11,7 @@ import ru.dpopkov.knowthenics.model.Answer;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.KeyTermService;
+import ru.dpopkov.knowthenics.utils.FieldValueValidator;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -24,10 +25,13 @@ public class AnswersAllController {
 
     private final AnswerService answerService;
     private final KeyTermService keyTermService;
+    private final FieldValueValidator fieldValueValidator;
 
-    public AnswersAllController(AnswerService answerService, KeyTermService keyTermService) {
+    public AnswersAllController(AnswerService answerService, KeyTermService keyTermService,
+                                FieldValueValidator fieldValueValidator) {
         this.answerService = answerService;
         this.keyTermService = keyTermService;
+        this.fieldValueValidator = fieldValueValidator;
     }
 
     @GetMapping({"/answers", "/answers/", "/answers/list", "/answers/list.html", "/answers/index", "/answers/index.html"})
@@ -42,6 +46,9 @@ public class AnswersAllController {
         log.debug("Showing details for Answer ID {}", id);
         Answer answer = answerService.findById(id);
         model.addAttribute(answer);
+        if (answer.getSourceDetails() != null && fieldValueValidator.urlIsValid(answer.getSourceDetails())) {
+            model.addAttribute("sourceDetailsClickable", true);
+        }
         return "answers/answer-details";
     }
 

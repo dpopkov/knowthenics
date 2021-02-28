@@ -13,6 +13,7 @@ import ru.dpopkov.knowthenics.model.Answer;
 import ru.dpopkov.knowthenics.model.KeyTerm;
 import ru.dpopkov.knowthenics.services.AnswerService;
 import ru.dpopkov.knowthenics.services.KeyTermService;
+import ru.dpopkov.knowthenics.utils.FieldValueValidator;
 
 import java.util.Set;
 
@@ -28,6 +29,8 @@ class AnswersAllControllerTest {
     AnswerService answerService;
     @Mock
     KeyTermService keyTermService;
+    @Mock
+    FieldValueValidator fieldValueValidator;
     @InjectMocks
     AnswersAllController controller;
 
@@ -58,6 +61,22 @@ class AnswersAllControllerTest {
         mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("answer"))
+                .andExpect(model().attributeDoesNotExist("sourceDetailsClickable"))
+                .andExpect(view().name("answers/answer-details"));
+        verify(answerService).findById(answerId);
+    }
+
+    @Test
+    void testShowClickableDetails() throws Exception {
+        final Long answerId = 20L;
+        when(answerService.findById(answerId))
+                .thenReturn(Answer.builder().id(answerId).sourceDetails("http://example.com").build());
+        when(fieldValueValidator.urlIsValid(anyString())).thenReturn(true);
+
+        mockMvc.perform(get("/questions/10/answers/" + answerId + "/view"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("answer"))
+                .andExpect(model().attributeExists("sourceDetailsClickable"))
                 .andExpect(view().name("answers/answer-details"));
         verify(answerService).findById(answerId);
     }
