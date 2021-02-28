@@ -19,8 +19,6 @@
         <th>Category</th>
         <th>Question</th>
         <th>Вопрос</th>
-        <th>Short Answer</th>
-        <th>Preferred Answer</th>
     </tr>
     </thead>
     <tbody>
@@ -29,8 +27,6 @@
         <td th:text="${question.category?.getName()}"></td>
         <td th:text="${question.wordingEn}"></td>
         <td th:text="${question.wordingRu}"></td>
-        <td th:text="${question.shortAnswerEn}"></td>
-        <td th:text="${question.preferredAnswer?.getWordingEn()}"></td>
     </tr>
     </tbody>
 </table>

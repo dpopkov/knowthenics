@@ -8,10 +8,20 @@
 
 <h2 th:text="#{welcome}">Welcome</h2>
 
+<div class="container">
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <img class="img-responsive" src="../static/resources/images/pets.png" th:src="@{/resources/images/pets.png}"/>
     </div>
+    <div class="col-md-6">
+        <p><a href="#" th:href="@{/decks/list}">Select Deck</a></p>
+        <p><a href="#" th:href="@{/decks/new}">Create New Deck</a></p>
+        <p><a href="#" th:href="@{/questions/new}">Create New Question</a></p>
+        <p><a href="#" th:href="@{/qcollections/new}">Create New Collection</a></p>
+        <p><a href="#" th:href="@{/keyterms/new}">Create New KeyTerm</a></p>
+        <p><a href="#" th:href="@{/categories/new}">Create New Category</a></p>
+    </div>
+</div>
 </div>
 
 </body>

@@ -1,5 +1,9 @@
 # History
 
+#### 2021-02-28
+* Add links to Home page.
+* Remove answers from list of Questions.
+
 #### 2021-02-26
 * Do not show empty fields on view 'Question Details'. Closes #71.
 
