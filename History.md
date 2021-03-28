@@ -1,5 +1,11 @@
 # History
 
+#### 2021-03-28
+* Add Liquibase Maven plugin to pom.xml.
+* Add liquibase.properties
+* Generate changeLog: `mvn liquibase:generateChangeLog`
+* Populate the DATABASECHANGELOG tracking table: `mvn liquibase:changelogSync -Dliquibase.changeLogFile=filename`
+
 #### 2021-02-28
 * Add links to Home page.
 * Remove answers from list of Questions.
