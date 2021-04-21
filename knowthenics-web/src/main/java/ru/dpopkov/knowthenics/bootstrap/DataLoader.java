@@ -2,9 +2,14 @@ package ru.dpopkov.knowthenics.bootstrap;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.dpopkov.knowthenics.model.*;
+import ru.dpopkov.knowthenics.repositories.UserRepository;
 import ru.dpopkov.knowthenics.services.*;
+
+import java.util.Set;
 
 /**
  * Initializes data on startup or the application.
@@ -13,6 +18,7 @@ import ru.dpopkov.knowthenics.services.*;
 @Component
 public class DataLoader implements CommandLineRunner {
 
+    private final UserRepository userRepository;
     private final AnswerService answerService;
     private final CategoryService categoryService;
     private final QuestionService questionService;
@@ -22,9 +28,10 @@ public class DataLoader implements CommandLineRunner {
     private final FlashCardService flashCardService;
     private final DeckService deckService;
 
-    public DataLoader(AnswerService answerService, CategoryService categoryService,
+    public DataLoader(UserRepository userRepository, AnswerService answerService, CategoryService categoryService,
                       QuestionService questionService, SourceService sourceService,
                       KeyTermService keyTermService, QCollectionService qCollectionService, FlashCardService flashCardService, DeckService deckService) {
+        this.userRepository = userRepository;
         this.answerService = answerService;
         this.categoryService = categoryService;
         this.questionService = questionService;
@@ -47,6 +54,11 @@ public class DataLoader implements CommandLineRunner {
 
     private void loadData() {
         log.info("Loading bootstrap data ...");
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        addUser("admin", "admin", encoder, "read");
+        addUser("guest", "guest", encoder, "read");
+        log.info("Users loaded.");
 
         Category catCore = saveCategory("Java Core", "Java syntax and main library classes");
         saveCategory("Spring", "Spring framework");
@@ -123,6 +135,17 @@ public class DataLoader implements CommandLineRunner {
         deck.addCard(fc3);
         deckService.save(deck);
         log.info("####### Cards and Decks loaded");
+    }
+
+    private void addUser(String username, String rawPassword, PasswordEncoder encoder, String... authorities) {
+        EncryptionAlgorithm algorithm = (encoder instanceof BCryptPasswordEncoder)
+                ? EncryptionAlgorithm.BCRYPT : EncryptionAlgorithm.NOOP;
+        User user = new User(username, encoder.encode(rawPassword), algorithm);
+        for (String auth : authorities) {
+            Authority authority = new Authority(auth, user);
+            user.addAuthority(authority);
+        }
+        userRepository.saveAndFlush(user);
     }
 
     private Question saveQuestion(Category category, String wording, String shortAnswer, KeyTerm... keyTerms) {

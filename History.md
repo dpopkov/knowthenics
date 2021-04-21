@@ -1,5 +1,8 @@
 # History
 
+#### 2021-05-11
+* Add Form Based Authentication with admin and guest. Closes #74.
+
 #### 2021-02-28
 * Add links to Home page.
 * Remove answers from list of Questions.
