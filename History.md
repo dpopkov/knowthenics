@@ -1,5 +1,8 @@
 # History
 
+#### 2021-05-14
+* Add tests for Authentication. Closes #77
+
 #### 2021-05-11
 * Add Form Based Authentication with admin and guest. Closes #74.
 
